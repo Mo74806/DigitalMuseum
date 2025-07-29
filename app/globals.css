@@ -1,1 +1,11 @@
 @import "tailwindcss";
+body {
+  font-size: 16px;
+}
+* {
+  font-family: var(--font-play-fair);
+}
+
+.patua_font {
+  font-family: var(--font-patua) !important;
+}
