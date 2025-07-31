@@ -76,7 +76,7 @@ export default function GalleryGrid({
     >
       <div
         ref={contentRef}
-        className={`     relative      xxl:!px-[450px] md:px-[50px] px-[20px] ${
+        className={`     relative      xl:!px-[450px] md:px-[50px] px-[20px] ${
           showGrid
             ? "top-[-400px]  pt-[450px] md:!translate-x-[-250px]xx !translate-x-[-400px]xx"
             : " !w-full "

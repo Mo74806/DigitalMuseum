@@ -42,3 +42,28 @@ body {
 .hidden-text {
   opacity: 0;
 }
+#animated-text path {
+  border: 1px solid red;
+  fill: transparent;
+  stroke: #fff;
+  stroke-width: 0.1;
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  animation: textAnimation 5s ease forwards;
+}
+
+@keyframes textAnimation {
+  0% {
+    stroke-dashoffset: 1000;
+    /* zoom: 200; */
+    /* transform: scale(200) !important; */
+  }
+  50% {
+    fill: transparent;
+  }
+  100% {
+    /* transform: scale(100) !important; */
+    fill: #fff;
+    stroke-dashoffset: 0;
+  }
+}
