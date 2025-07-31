@@ -4,7 +4,7 @@ import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
-import Img from "next/image";
+// import Img from "next/image";
 
 const IMAGES = [
   "/images/hero/img1.jpg",
@@ -24,14 +24,13 @@ const LoadingScreen = () => {
 const HeroSection = () => {
   const [loading, setLoading] = useState(true);
   const page1Ref = useRef(null);
-  const page2Ref = useRef(null);
   const mainTextRef = useRef(null);
   const subTextRef = useRef(null);
   const router = useRouter();
 
   const handleAnimation = () => {
     if (page1Ref.current && mainTextRef.current) {
-      const mainText = new SplitText(mainTextRef.current, { type: "chars" });
+      // const mainText = new SplitText(mainTextRef.current, { type: "chars" });
       const subText = new SplitText(subTextRef.current, { type: "chars" });
 
       // gsap.fromTo(
@@ -137,8 +136,8 @@ const HeroSection = () => {
 
   const handleNavigateToListPage = () => {
     if (page1Ref.current && mainTextRef.current) {
-      const mainText = new SplitText(mainTextRef.current, { type: "chars" });
-      const subText = new SplitText(subTextRef.current, { type: "chars" });
+      // const mainText = new SplitText(mainTextRef.current, { type: "chars" });
+      // const subText = new SplitText(subTextRef.current, { type: "chars" });
       const tl = gsap.timeline();
       tl.to("#whole_svg", {
         opacity: 1,

@@ -29,7 +29,6 @@ export default function RootLayout({
         className={` ${patua_one.variable}  ${playFair.variable}    antialiased`}
       >
         <NavBar />
-
         {children}
         <Footer />
       </body>

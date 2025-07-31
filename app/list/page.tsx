@@ -2,14 +2,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import GalleryGrid from "@/components/GalleryGrid";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { useGSAP } from "@gsap/react";
 import Menu from "@/components/Menu";
 import GridMenu from "@/components/GridMenu";
 import GrabMenu from "@/components/GrabMenu";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const ListPage = () => {
   const [showGrid, setShowGrid] = useState("grid");
@@ -33,6 +30,10 @@ const ListPage = () => {
       setShowGallery(true);
     }, 500);
     gsap.from("#bg-svg", {
+      scale: 1.4,
+      top: "-10%",
+      duration: 1,
+      // right: "-20%",
       rotate: "-30",
     });
 
@@ -64,7 +65,7 @@ const ListPage = () => {
         id="bg-svg"
         className="absolute  scale-100 top-0 right-0"
         width="100%"
-        height="90%"
+        height="100%"
         viewBox="0 0 1728 1085"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +94,7 @@ const ListPage = () => {
             />
           </mask>
           <g mask="url(#mask0_400_3504)">
-            <g opacity="0.02">
+            <g opacity="0.04">
               <path
                 d="M42.605 732.955L126.554 629.898C131.585 623.71 133.969 615.796 133.163 607.86C132.358 599.924 128.492 592.602 122.323 587.502C-178.401 330.646 -334.89 -67.0648 -275.619 -469.086C-273.402 -485.409 -283.759 -501.002 -300.494 -503.974L-432.015 -527.523C-448.725 -530.473 -465.256 -519.282 -467.648 -502.444C-538.628 -31.9362 -354.44 436.213 -1.00951 736.752C11.9339 747.905 31.4283 745.877 42.7599 732.464L42.5834 732.979L42.605 732.955Z"
                 fill="#EFEBE5"
@@ -131,7 +132,7 @@ const ListPage = () => {
             />
           </mask>
           <g mask="url(#mask1_400_3504)">
-            <g opacity="0.02">
+            <g opacity="0.04">
               <path
                 d="M362.984 -1523.62L414.275 -1400.92C420.544 -1385.42 438.422 -1378.56 453.802 -1384.28C695.628 -1479.19 970.133 -1494.95 1236.94 -1410.29C1383.21 -1363.88 1513.67 -1291.89 1624.91 -1200.16C1638.06 -1189.53 1656.69 -1190.66 1667.86 -1203.58L1754.64 -1304.19C1765.81 -1317.11 1764.43 -1336.94 1751.31 -1347.57C1620.46 -1455.55 1467.03 -1540.68 1295.59 -1595.1C983.251 -1694.22 661.684 -1675.18 379.079 -1563.21C363.523 -1556.96 356.002 -1538.77 362.271 -1523.26L362.983 -1523.64L362.984 -1523.62Z"
                 fill="#EFEBE5"
@@ -169,7 +170,7 @@ const ListPage = () => {
             />
           </mask>
           <g mask="url(#mask2_400_3504)">
-            <g opacity="0.02">
+            <g opacity="0.04">
               <path
                 d="M1886.08 120.024L1762.42 69.6388C1746.7 63.4653 1729.76 70.4141 1722.55 85.7201C1554.56 453.531 1162.17 666.826 763.255 612.948C746.884 610.689 731.089 621.516 728.695 638.332L707.158 769.346C704.228 786.009 716.198 802.126 733.108 804.561C1219.61 872.132 1699.65 611.007 1902.57 161.019C1909.78 145.713 1902.21 126.885 1885.95 120.559L1886.12 120.021L1886.08 120.024Z"
                 fill="#EFEBE5"
