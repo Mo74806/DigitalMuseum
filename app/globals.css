@@ -39,3 +39,6 @@ body {
   position: fixed;
   width: 100%;
 }
+.hidden-text {
+  opacity: 0;
+}

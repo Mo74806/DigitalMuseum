@@ -1,88 +1,142 @@
 "use client";
-import Footer from "@/components/Footer";
-import NavBar from "@/components/NavBar";
-import { useGSAP } from "@gsap/react";
+import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
-import React, { useRef } from "react";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-
-gsap.registerPlugin(ScrollToPlugin);
+import { SplitText } from "gsap/SplitText";
+import { useRouter } from "next/navigation";
+import Button from "@/components/Button";
 const HeroSection = () => {
   const page1Ref = useRef(null);
   const page2Ref = useRef(null);
   const mainTextRef = useRef(null);
+  const subTextRef = useRef(null);
+  const router = useRouter();
+  const handleAnimation = () => {
+    if (page1Ref.current && mainTextRef.current) {
+      gsap.to(page2Ref.current, {
+        duration: 1,
+        ease: "power2.inOut",
+        top: "100%",
+      });
 
-  useGSAP(() => {
-    gsap.from("#whole_svg", {
-      ease: "power2.inOut",
-      top: "-100%",
-      scale: 10,
-      duration: 2,
-      rotate: "180",
-    });
-  }, []);
-
-  const handleShowListSection = () => {
-    gsap.to(page1Ref.current, {
-      duration: 1,
-      ease: "power2.inOut",
-      top: "-100%",
-    });
-    gsap.to("#whole_svg", {
-      // scrollTo: "#list",
-      duration: 1,
-      ease: "power2.inOut",
-      top: "-100%",
-      rotate: "180",
-      // onComplete: () => {
-      //   setShowPage(true);
-      //   // document.body.classList.remove("no-scroll");
-      // },
-    });
-    gsap.to("#list", {
-      duration: 1,
-      ease: "power2.inOut",
-      top: "-100%",
-    });
+      const mainText = new SplitText(mainTextRef.current, { type: "chars" });
+      const subText = new SplitText(subTextRef.current, { type: "chars" });
+      gsap.fromTo(
+        page1Ref.current,
+        {
+          duration: 1,
+          ease: "power2.inOut",
+          top: "-100%",
+        },
+        {
+          duration: 1,
+          ease: "power2.inOut",
+          top: "0%",
+        }
+      );
+      gsap.fromTo(
+        mainText.chars,
+        {
+          opacity: 0,
+          stagger: 0.3,
+          ease: "power1.inOut",
+        },
+        {
+          opacity: 1,
+          stagger: 0.05,
+          ease: "expo.inOut",
+          duration: 1.2,
+        }
+      );
+      gsap.fromTo(
+        subText.chars,
+        {
+          opacity: 0,
+          stagger: 0.3,
+          ease: "power1.inOut",
+        },
+        {
+          delay: 1.2,
+          opacity: 1,
+          stagger: 0.05,
+          ease: "expo.inOut",
+          // duration: 1.2,
+        }
+      );
+      gsap.fromTo(
+        "#landing-btn",
+        {
+          opacity: 0,
+          // stagger: 0.3,
+          bottom: "-200",
+          ease: "power1.inOut",
+        },
+        {
+          delay: 1.2,
+          opacity: 1,
+          bottom: 0,
+          // stagger: 0.05,
+          ease: "expo.inOut",
+          // duration: 1.2,
+        }
+      );
+    }
   };
+  useEffect(() => {
+    handleAnimation();
+    gsap.fromTo(
+      "#whole_svg",
+      {
+        ease: "expo.inOut",
+        top: "-100%",
+        scale: 10,
+        rotate: "180",
+      },
+      {
+        ease: "expo.inOut",
+        top: "0",
+        scale: 1,
+        duration: 3,
+        rotate: "0",
+      }
+    );
+  }, [page1Ref, mainTextRef]);
 
   return (
-    <main className="  overflow-hidden  h-[100vh]">
-      <NavBar />
+    <main id="main-screen" className="overflow-hidden  h-[100vh]">
       {/* landing section */}
+
       <div
         ref={page1Ref}
         id="landing"
-        className="relative flex  w-full h-screen  bg-[#253143]  overflow-hidden  md:items-center items-start justify-center "
+        className="relative flex  w-full h-[100vh]  bg-[#253143]  overflow-hidden  md:items-center items-start justify-center "
       >
         <div className="z-1 flex flex-col w-full md:pt-0 pt-[150px] items-center  justify-center ">
           <h1
             id="main_text"
             ref={mainTextRef}
-            style={{
-              textWrap: "balance",
-            }}
             className="mb-[30px]  text-white  xl:w-[25%] lg:w-[35%]  md:w-[50%] w-[100%]    font-[400]   xl:text-[3.69rem] lg:text-[3rem]  text-[2rem] text-center "
           >
             Objects, Voices
             <br /> and Global <br />
             Journeys
           </h1>
-
-          <span className="xl:w-[25%] lg:w-[35%] w-[90%] mb-[30px] text-[#EFEBE5] font-[400] xl:text-[1rem] lg:text-[0.8rem] md:text-[0.7rem] text-center">
+          <span
+            id="sub_text"
+            ref={subTextRef}
+            className="xl:w-[25%] lg:w-[35%] w-[90%] mb-[30px] text-[#EFEBE5] font-[400] xl:text-[1rem] lg:text-[0.8rem] md:text-[0.7rem] text-center"
+          >
             Exploring identity through objects in a world shaped by migration.
           </span>
-          <button
-            onClick={handleShowListSection}
-            style={{ fontFamily: "var(--font-patua)" }}
-            className={`bg-[#EFEBE5] md:w-auto w-[80%] md:px-[40px] px-[20px] md:py-[16px] py-[10px] rounded-full xl:text-[0.94rem] text-[0.89rem] font-[400] text-[#253143] `}
-          >
-            Enter Exhibition
-          </button>
+          <Button
+            onClick={() => router.push("/list")}
+            id="landing-btn"
+            title="Enter Exhibition"
+          />
         </div>
         <svg
           id="whole_svg"
-          className="absolute   md:top-[0%] top-[25%] md:left-0 left-[20%] "
+          // className="absolute   md:top-[0%] top-[25%] md:left-0 left-[20%] "
+          className="absolute   top-[100%]  "
           width="100%"
           height="100%"
           viewBox="0 0 1378 1117"
@@ -277,11 +331,6 @@ const HeroSection = () => {
           </defs>
         </svg>
       </div>
-
-      <section className="relative" ref={page2Ref}>
-        {/* list section will be here */}
-      </section>
-      <Footer />
     </main>
   );
 };

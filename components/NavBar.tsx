@@ -8,7 +8,7 @@ const NavBar = () => {
         background:
           "linear-gradient(180deg, #253143 0%, rgba(37, 49, 67, 0) 100%)",
       }}
-      className="fixed w-full z-[10] h- flex justify-center top-0 py-[33px] "
+      className="fixed w-full  z-[10000] cursor-pointer h- flex justify-center top-0 py-[33px] "
     >
       <Image
         src="./images/svg/Artifacta.svg"

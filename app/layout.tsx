@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Patua_One } from "next/font/google";
 import "./globals.css";
+import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 
 const playFair = Playfair_Display({
   variable: "--font-play-fair",
@@ -25,7 +27,10 @@ export default function RootLayout({
       <body
         className={` ${patua_one.variable}  ${playFair.variable}    antialiased`}
       >
+        <NavBar />
+
         {children}
+        <Footer />
       </body>
     </html>
   );
