@@ -1,286 +1,288 @@
-import Image from "next/image";
-import React from "react";
+"use client";
+import Footer from "@/components/Footer";
+import NavBar from "@/components/NavBar";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import React, { useRef } from "react";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
+gsap.registerPlugin(ScrollToPlugin);
 const HeroSection = () => {
+  const page1Ref = useRef(null);
+  const page2Ref = useRef(null);
+  const mainTextRef = useRef(null);
+
+  useGSAP(() => {
+    gsap.from("#whole_svg", {
+      ease: "power2.inOut",
+      top: "-100%",
+      scale: 10,
+      duration: 2,
+      rotate: "180",
+    });
+  }, []);
+
+  const handleShowListSection = () => {
+    gsap.to(page1Ref.current, {
+      duration: 1,
+      ease: "power2.inOut",
+      top: "-100%",
+    });
+    gsap.to("#whole_svg", {
+      // scrollTo: "#list",
+      duration: 1,
+      ease: "power2.inOut",
+      top: "-100%",
+      rotate: "180",
+      // onComplete: () => {
+      //   setShowPage(true);
+      //   // document.body.classList.remove("no-scroll");
+      // },
+    });
+    gsap.to("#list", {
+      duration: 1,
+      ease: "power2.inOut",
+      top: "-100%",
+    });
+  };
+
   return (
-    <div className="relative w-full h-screen  bg-[#253143]  overflow-hidden  items-center justify-center flex">
-      <div className="absolute top-0 mt-[33px]">
-        <Image
-          src="./images/svg/Artifacta.svg"
-          width="100"
-          height="100"
-          // sizes="100px"
-          alt="Artifacta_Logo"
-        />
-      </div>
-      {/* Foreground Text */}
-      <div className="z-[100] flex-col flex  items-center justify-center  w-full">
-        <h1
-          // style={{ flexWrap: "content" }}
-          className="mb-[30px] text-white  xl:w-[25%] lg:w-[35%]  md:w-[50%] w-[100%]   font-[400]   xl:text-[3.69rem] lg:text-[3rem]  text-[2rem] text-center z-10"
-        >
-          Objects, Voices
-          <br /> and Global <br />
-          Journeys
-        </h1>
-
-        <span className="xl:w-[25%] lg:w-[35%] w-[70%] mb-[30px] text-[#EFEBE5] font-[400] xl:text-[1rem] lg:text-[0.8rem] md:text-[0.7rem] text-center">
-          {" "}
-          Exploring identity through objects in a world shaped by migration.
-        </span>
-        <button
-          style={{ fontFamily: "var(--font-patua)" }}
-          className={`bg-[#EFEBE5] md:px-[40px] px-[20px] md:py-[16px] py-[10px] rounded-full xl:text-[0.94rem] text-[0.89rem]    font-[400] text-[#253143] !patua_font`}
-        >
-          Enter Exhibition
-        </button>
-      </div>
-      <svg
-        className="absolute md:top-0 bottom-[-35%] md:left-0 left-[20%]"
-        width="100%"
-        height="100%"
-        viewBox="0 0 1378 1117"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        // xmlns:xlink="http://www.w3.org/1999/xlink"
+    <main className="  overflow-hidden  h-[100vh]">
+      <NavBar />
+      {/* landing section */}
+      <div
+        ref={page1Ref}
+        id="landing"
+        className="relative flex  w-full h-screen  bg-[#253143]  overflow-hidden  md:items-center items-start justify-center "
       >
-        <g clipPath="url(#clip0_4004_1762)">
-          <mask
-            id="mask0_4004_1762"
-            style={{ maskType: "alpha" }}
-            maskUnits="userSpaceOnUse"
-            x="255"
-            y="577"
-            width="961"
-            height="727"
+        <div className="z-1 flex flex-col w-full md:pt-0 pt-[150px] items-center  justify-center ">
+          <h1
+            id="main_text"
+            ref={mainTextRef}
+            style={{
+              textWrap: "balance",
+            }}
+            className="mb-[30px]  text-white  xl:w-[25%] lg:w-[35%]  md:w-[50%] w-[100%]    font-[400]   xl:text-[3.69rem] lg:text-[3rem]  text-[2rem] text-center "
           >
-            <path
-              d="M1210.79 1061.83L1160.12 1015.42C1157.08 1012.64 1153.06 1011.17 1148.94 1011.35C1144.82 1011.53 1140.93 1013.3 1138.11 1016.33C996.513 1163.8 786.546 1232.61 580.829 1189.97C572.47 1188.33 564.112 1193.21 562.076 1201.75L545.974 1268.91C543.95 1277.45 549.23 1286.31 557.849 1288.05C798.562 1338.79 1045.72 1257.8 1211.44 1084.45C1217.59 1078.1 1217.12 1067.98 1210.54 1061.74L1210.8 1061.84L1210.79 1061.83Z"
-              fill="#EFEBE5"
-            />
-            <path
-              d="M303.201 990.222C296.772 996.507 296.843 1006.83 302.881 1012.89C356.951 1065.71 422.03 1108.39 496.83 1137C680.443 1207.22 878.453 1175.91 1029.77 1070.87C1036.97 1065.82 1038.72 1055.57 1033.37 1048.53L993.34 992.956C988.261 986.021 978.991 984.352 971.911 989.122C847.127 1074.98 684.457 1100.45 532.975 1042.51C471.956 1019.17 418.692 984.458 374.413 941.612C368.257 935.824 358.644 935.883 352.7 941.73L303.296 989.938L303.189 990.211L303.201 990.222Z"
-              fill="#EFEBE5"
-            />
-            <path
-              d="M790.062 951.211C788.227 943.032 780.034 937.73 771.984 939.316C709.437 952.134 642.629 947.755 578.828 923.349C439.872 870.206 354.926 737.465 355.246 596.546C355.352 588.178 348.58 581.55 340.447 580.922L272.585 577.691C263.433 577.312 256.057 584.449 255.903 593.729C254.364 775.908 364.208 948.063 543.168 1016.51C625.889 1048.15 712.563 1053.27 793.72 1036.36C802.517 1034.43 808.211 1026.03 806.045 1017.1L790.417 951.033L790.05 951.199L790.062 951.211Z"
-              fill="#EFEBE5"
-            />
-          </mask>
-          <g mask="url(#mask0_4004_1762)">
-            <rect
-              x="240.335"
-              y="373.97"
-              width="1002.78"
-              height="970.55"
-              fill="url(#pattern0_4004_1762)"
-            />
-            <rect
-              x="240.335"
-              y="373.97"
-              width="1002.78"
-              height="970.55"
-              fill="url(#pattern1_4004_1762)"
-            />
-          </g>
-          <mask
-            id="mask1_4004_1762"
-            style={{ maskType: "alpha" }}
-            maskUnits="userSpaceOnUse"
-            x="-1"
-            y="41"
-            width="915"
-            height="790"
-          >
-            <path
-              d="M55.7149 828.815L120.582 806.031C128.774 803.261 132.847 794.242 130.361 786.135C88.6277 658.507 88.7343 516.393 140.436 381.261C168.779 307.18 209.849 242.023 260.532 187.376C266.416 180.914 266.393 171.267 260.059 165.113L210.737 117.319C204.403 111.164 194.126 111.283 188.242 117.733C128.585 182.014 80.0444 258.629 46.8119 345.458C-13.7217 503.645 -13.5441 670.142 35.766 819.323C38.5245 827.537 47.688 831.964 55.8807 829.194L55.7031 828.815H55.7149Z"
-              fill="#EFEBE5"
-            />
-            <path
-              d="M166.008 391.428C137.95 464.741 125.862 540.112 128.052 613.779C128.395 622.621 135.795 629.19 144.627 628.835L213.306 625.225C221.854 624.763 228.424 617.318 228.259 608.832C226.838 548.527 237.031 487.063 259.893 427.327C315.276 282.608 433.123 180.464 570.327 139.559C578.697 137.156 583.468 128.705 581.479 120.172L564.1 53.7599C561.827 45.1078 553.148 40.2313 544.506 42.5394C377.124 91.8125 233.255 215.771 166.127 391.168L166.02 391.44L166.008 391.428Z"
-              fill="#EFEBE5"
-            />
-            <path
-              d="M285.655 436.228C282.636 444.099 279.522 452.242 277.32 460.42C274.644 469.037 279.546 478.08 288.129 480.731L353.54 499.207C361.686 501.385 370.234 496.875 372.696 488.803C374.496 483.264 376.307 477.736 378.497 472.031C447.567 291.533 649.176 200.94 828.858 269.672C839.123 273.601 848.914 277.969 858.326 282.502C865.856 286.313 875.055 283.295 879.151 275.838L911.188 215.593C915.486 207.592 912.088 197.887 904.286 193.981C891.57 187.554 878.37 181.577 864.589 176.31C634.105 88.1552 374.247 204.704 285.548 436.488L285.655 436.216V436.228Z"
-              fill="#EFEBE5"
-            />
-          </mask>
-          <g mask="url(#mask1_4004_1762)">
-            <rect
-              x="-46.1726"
-              y="-110.121"
-              width="969.626"
-              height="939.777"
-              fill="url(#pattern2_4004_1762)"
-            />
-          </g>
-          <mask
-            id="mask2_4004_1762"
-            style={{ maskType: "alpha" }}
-            maskUnits="userSpaceOnUse"
-            x="839"
-            y="-91"
-            width="541"
-            height="1082"
-          >
-            <path
-              d="M949.76 92.2267L920.044 154.519C916.385 162.45 919.464 171.398 927.147 175.576C1111.94 273.294 1210.26 482.163 1170.48 686.381C1168.82 694.761 1173.93 703.235 1182.54 704.975L1249.52 720.019C1258.03 722.031 1266.71 716.338 1268.47 707.686C1317.95 458.68 1197.58 203.154 971.414 84.9476C963.73 80.7695 953.785 84.1072 950.032 92.3096L949.76 92.2031V92.2267Z"
-              fill="#EFEBE5"
-            />
-            <path
-              d="M989.717 270.453L945.237 321.904C939.72 328.201 940.123 337.693 946.007 343.362C1043.54 437.624 1081 585.148 1029.26 720.35C998.928 799.628 943.059 861.352 874.57 900.21C867.419 904.317 864.53 913.49 868.401 921.195L898.757 981.984C902.794 990.057 912.845 992.968 920.742 988.53C1009.8 938.866 1082.89 858.831 1122.16 756.201C1188.97 581.633 1139.88 390.754 1012.67 269.589C1011.11 268.086 1009.28 266.926 1007.25 266.168C1005.23 265.411 1003.07 265.079 1000.92 265.186C998.762 265.292 996.643 265.837 994.701 266.796C992.76 267.742 991.031 269.092 989.61 270.737L989.717 270.465V270.453Z"
-              fill="#EFEBE5"
-            />
-            <path
-              d="M920.103 30.36C1101.43 99.707 1229.89 247.302 1282 420.355C1283.13 424.368 1285.81 427.777 1289.45 429.801C1293.08 431.836 1297.38 432.333 1301.39 431.185L1367.36 412.627C1375.71 410.236 1380.95 401.359 1378.31 392.896C1317.89 190.572 1167.93 17.3641 956.082 -63.665C928.781 -74.1044 901.409 -82.7091 873.682 -89.5858C865.157 -91.5979 856.586 -86.1889 854.55 -77.6433L839.916 -10.2493C837.987 -1.97592 843.48 6.33293 851.625 8.52259C874.546 14.1802 897.502 21.412 920.198 30.0877L920.091 30.36H920.103Z"
-              fill="#EFEBE5"
-            />
-          </mask>
-          <g mask="url(#mask2_4004_1762)">
-            <rect
-              x="458.175"
-              y="-100.652"
-              width="1136.56"
-              height="1101.93"
-              fill="url(#pattern3_4004_1762)"
-            />
-          </g>
-        </g>
-        <defs>
-          <pattern
-            id="pattern0_4004_1762"
-            patternContentUnits="objectBoundingBox"
-            width="1"
-            height="1"
-          >
-            <use
-              href="#image0_4004_1762"
-              transform="matrix(0.00148445 0 0 0.00153374 -0.225898 0)"
-            />
-          </pattern>
-          <pattern
-            id="pattern1_4004_1762"
-            patternContentUnits="objectBoundingBox"
-            width="1"
-            height="1"
-          >
-            <use
-              href="#image1_4004_1762"
-              transform="matrix(0.00181588 0 0 0.00187617 -0.226352 0)"
-            />
-          </pattern>
-          <pattern
-            id="pattern2_4004_1762"
-            patternContentUnits="objectBoundingBox"
-            width="1"
-            height="1"
-          >
-            <use
-              href="#image2_4004_1762"
-              transform="matrix(0.00204082 0 0 0.00210564 0 -0.528604)"
-            />
-          </pattern>
-          <pattern
-            id="pattern3_4004_1762"
-            patternContentUnits="objectBoundingBox"
-            width="1"
-            height="1"
-          >
-            <use
-              href="#image3_4004_1762"
-              transform="matrix(0.00154799 0 0 0.00159663 0 -0.279955)"
-            />
-          </pattern>
-          <clipPath id="clip0_4004_1762">
-            <rect
-              width="1379"
-              height="1393"
-              fill="white"
-              transform="translate(0 -90)"
-            />
-          </clipPath>
-          <image
-            id="image0_4004_1762"
-            // width="978"
-            // height="652"
-            preserveAspectRatio="none"
-            href="/images/hero/img3.jpg"
-          />
-          <image
-            id="image1_4004_1762"
-            // width="800"
-            // height="533"
-            // className="object-cover w-[800px]"
-            preserveAspectRatio="none"
-            href="/images/hero/img4.jpg"
-          />
-          <image
-            id="image2_4004_1762"
-            // width="490"
-            // height="977"
-            // className="object-cover w-[100%]  "
-            preserveAspectRatio="none"
-            href="/images/hero/img1.jpg"
-          />
-          <image
-            id="image3_4004_1762"
-            width="646"
-            height="977"
-            preserveAspectRatio="none"
-            href="/images/hero/img2.jpg"
-          />
-        </defs>
-      </svg>
+            Objects, Voices
+            <br /> and Global <br />
+            Journeys
+          </h1>
 
-      <div className="bg-[#253143]/80  border-t px-[40px] flex py-[12px] border-[#6D6E7D]  items-center w-full absolute bottom-0">
-        <p className="font-[400] text-[12px] text-white">
-          Copyright ©2025 Artifacta
-        </p>
-        <div className="ms-auto flex gap-x-6   h-fit">
-          <Image
-            src="./images/svg/x.svg"
-            width="24"
-            height="24"
-            // sizes="100px"
-            alt="Artifacta_Logo"
-          />
-          <Image
-            src="./images/svg/youtube.svg"
-            width="24"
-            height="24"
-            // sizes="100px"
-            alt="Artifacta_Logo"
-          />
+          <span className="xl:w-[25%] lg:w-[35%] w-[90%] mb-[30px] text-[#EFEBE5] font-[400] xl:text-[1rem] lg:text-[0.8rem] md:text-[0.7rem] text-center">
+            Exploring identity through objects in a world shaped by migration.
+          </span>
           <button
+            onClick={handleShowListSection}
             style={{ fontFamily: "var(--font-patua)" }}
-            className={`bg-[#EFEBE5]  flex  px-[5px]  rounded-full xl:text-[0.94rem] text-[0.89rem]    font-[400] text-[#253143] !patua_font`}
+            className={`bg-[#EFEBE5] md:w-auto w-[80%] md:px-[40px] px-[20px] md:py-[16px] py-[10px] rounded-full xl:text-[0.94rem] text-[0.89rem] font-[400] text-[#253143] `}
           >
-            {" "}
-            <Image
-              src="./images/svg/Frame 22.svg"
-              width="48"
-              height="48"
-              // sizes="100px"
-              alt="Artifacta_Logo"
-            />
-            <Image
-              src="./images/svg/Frame 20.svg"
-              width="48"
-              height="48"
-              // sizes="100px"
-              alt="Artifacta_Logo"
-            />
-            <Image
-              src="./images/svg/Frame 19.svg"
-              width="48"
-              height="48"
-              // sizes="100px"
-              alt="Artifacta_Logo"
-            />
+            Enter Exhibition
           </button>
         </div>
+        <svg
+          id="whole_svg"
+          className="absolute   md:top-[0%] top-[25%] md:left-0 left-[20%] "
+          width="100%"
+          height="100%"
+          viewBox="0 0 1378 1117"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g clipPath="url(#clip0_4004_1762)">
+            <mask
+              id="bottom_mask"
+              style={{ maskType: "alpha" }}
+              maskUnits="userSpaceOnUse"
+              x="255"
+              y="577"
+            >
+              <path
+                className="aopacity-0"
+                d="M1210.79 1061.83L1160.12 1015.42C1157.08 1012.64 1153.06 1011.17 1148.94 1011.35C1144.82 1011.53 1140.93 1013.3 1138.11 1016.33C996.513 1163.8 786.546 1232.61 580.829 1189.97C572.47 1188.33 564.112 1193.21 562.076 1201.75L545.974 1268.91C543.95 1277.45 549.23 1286.31 557.849 1288.05C798.562 1338.79 1045.72 1257.8 1211.44 1084.45C1217.59 1078.1 1217.12 1067.98 1210.54 1061.74L1210.8 1061.84L1210.79 1061.83Z"
+                fill="#EFEBE5"
+              />
+              <path
+                className="aopacity-0"
+                d="M303.201 990.222C296.772 996.507 296.843 1006.83 302.881 1012.89C356.951 1065.71 422.03 1108.39 496.83 1137C680.443 1207.22 878.453 1175.91 1029.77 1070.87C1036.97 1065.82 1038.72 1055.57 1033.37 1048.53L993.34 992.956C988.261 986.021 978.991 984.352 971.911 989.122C847.127 1074.98 684.457 1100.45 532.975 1042.51C471.956 1019.17 418.692 984.458 374.413 941.612C368.257 935.824 358.644 935.883 352.7 941.73L303.296 989.938L303.189 990.211L303.201 990.222Z"
+                fill="#EFEBE5"
+              />
+              <path
+                className="aopacity-0"
+                d="M790.062 951.211C788.227 943.032 780.034 937.73 771.984 939.316C709.437 952.134 642.629 947.755 578.828 923.349C439.872 870.206 354.926 737.465 355.246 596.546C355.352 588.178 348.58 581.55 340.447 580.922L272.585 577.691C263.433 577.312 256.057 584.449 255.903 593.729C254.364 775.908 364.208 948.063 543.168 1016.51C625.889 1048.15 712.563 1053.27 793.72 1036.36C802.517 1034.43 808.211 1026.03 806.045 1017.1L790.417 951.033L790.05 951.199L790.062 951.211Z"
+                fill="#EFEBE5"
+              />
+            </mask>
+
+            <g mask="url(#bottom_mask)">
+              <rect
+                x="240.335"
+                y="373.97"
+                width="1002.78"
+                height="970.55"
+                fill="url(#pattern0_4004_1762)"
+              />
+              <rect
+                x="240.335"
+                y="373.97"
+                width="1002.78"
+                height="970.55"
+                fill="url(#pattern1_4004_1762)"
+              />
+            </g>
+            <mask
+              id="left_mask"
+              style={{ maskType: "alpha" }}
+              maskUnits="userSpaceOnUse"
+              x="-1"
+              y="41"
+              width="915"
+              height="790"
+            >
+              <path
+                className="aopacity-0"
+                d="M55.7149 828.815L120.582 806.031C128.774 803.261 132.847 794.242 130.361 786.135C88.6277 658.507 88.7343 516.393 140.436 381.261C168.779 307.18 209.849 242.023 260.532 187.376C266.416 180.914 266.393 171.267 260.059 165.113L210.737 117.319C204.403 111.164 194.126 111.283 188.242 117.733C128.585 182.014 80.0444 258.629 46.8119 345.458C-13.7217 503.645 -13.5441 670.142 35.766 819.323C38.5245 827.537 47.688 831.964 55.8807 829.194L55.7031 828.815H55.7149Z"
+                fill="#EFEBE5"
+              />
+              <path
+                className="aopacity-0"
+                d="M166.008 391.428C137.95 464.741 125.862 540.112 128.052 613.779C128.395 622.621 135.795 629.19 144.627 628.835L213.306 625.225C221.854 624.763 228.424 617.318 228.259 608.832C226.838 548.527 237.031 487.063 259.893 427.327C315.276 282.608 433.123 180.464 570.327 139.559C578.697 137.156 583.468 128.705 581.479 120.172L564.1 53.7599C561.827 45.1078 553.148 40.2313 544.506 42.5394C377.124 91.8125 233.255 215.771 166.127 391.168L166.02 391.44L166.008 391.428Z"
+                fill="#EFEBE5"
+              />
+              <path
+                className="aopacity-0"
+                d="M285.655 436.228C282.636 444.099 279.522 452.242 277.32 460.42C274.644 469.037 279.546 478.08 288.129 480.731L353.54 499.207C361.686 501.385 370.234 496.875 372.696 488.803C374.496 483.264 376.307 477.736 378.497 472.031C447.567 291.533 649.176 200.94 828.858 269.672C839.123 273.601 848.914 277.969 858.326 282.502C865.856 286.313 875.055 283.295 879.151 275.838L911.188 215.593C915.486 207.592 912.088 197.887 904.286 193.981C891.57 187.554 878.37 181.577 864.589 176.31C634.105 88.1552 374.247 204.704 285.548 436.488L285.655 436.216V436.228Z"
+                fill="#EFEBE5"
+              />
+            </mask>
+            <g mask="url(#left_mask)">
+              <rect
+                x="-46.1726"
+                y="-110.121"
+                width="969.626"
+                height="939.777"
+                fill="url(#pattern2_4004_1762)"
+              />
+            </g>
+            <mask
+              id="right_mask"
+              style={{ maskType: "alpha" }}
+              maskUnits="userSpaceOnUse"
+              x="839"
+              y="-91"
+              width="541"
+              height="1082"
+            >
+              <path
+                className="aopacity-0"
+                d="M949.76 92.2267L920.044 154.519C916.385 162.45 919.464 171.398 927.147 175.576C1111.94 273.294 1210.26 482.163 1170.48 686.381C1168.82 694.761 1173.93 703.235 1182.54 704.975L1249.52 720.019C1258.03 722.031 1266.71 716.338 1268.47 707.686C1317.95 458.68 1197.58 203.154 971.414 84.9476C963.73 80.7695 953.785 84.1072 950.032 92.3096L949.76 92.2031V92.2267Z"
+                fill="#EFEBE5"
+              />
+              <path
+                className="aopacity-0"
+                d="M989.717 270.453L945.237 321.904C939.72 328.201 940.123 337.693 946.007 343.362C1043.54 437.624 1081 585.148 1029.26 720.35C998.928 799.628 943.059 861.352 874.57 900.21C867.419 904.317 864.53 913.49 868.401 921.195L898.757 981.984C902.794 990.057 912.845 992.968 920.742 988.53C1009.8 938.866 1082.89 858.831 1122.16 756.201C1188.97 581.633 1139.88 390.754 1012.67 269.589C1011.11 268.086 1009.28 266.926 1007.25 266.168C1005.23 265.411 1003.07 265.079 1000.92 265.186C998.762 265.292 996.643 265.837 994.701 266.796C992.76 267.742 991.031 269.092 989.61 270.737L989.717 270.465V270.453Z"
+                fill="#EFEBE5"
+              />
+              <path
+                className="aopacity-0"
+                d="M920.103 30.36C1101.43 99.707 1229.89 247.302 1282 420.355C1283.13 424.368 1285.81 427.777 1289.45 429.801C1293.08 431.836 1297.38 432.333 1301.39 431.185L1367.36 412.627C1375.71 410.236 1380.95 401.359 1378.31 392.896C1317.89 190.572 1167.93 17.3641 956.082 -63.665C928.781 -74.1044 901.409 -82.7091 873.682 -89.5858C865.157 -91.5979 856.586 -86.1889 854.55 -77.6433L839.916 -10.2493C837.987 -1.97592 843.48 6.33293 851.625 8.52259C874.546 14.1802 897.502 21.412 920.198 30.0877L920.091 30.36H920.103Z"
+                fill="#EFEBE5"
+              />
+            </mask>
+            <g mask="url(#right_mask)">
+              <rect
+                x="458.175"
+                y="-100.652"
+                width="1136.56"
+                height="1101.93"
+                fill="url(#pattern3_4004_1762)"
+              />
+            </g>
+          </g>
+          <defs>
+            <pattern
+              id="pattern0_4004_1762"
+              patternContentUnits="objectBoundingBox"
+              width="1"
+              height="1"
+            >
+              <use
+                href="#image0_4004_1762"
+                transform="matrix(0.00148445 0 0 0.00153374 -0.225898 0)"
+              />
+            </pattern>
+            <pattern
+              id="pattern1_4004_1762"
+              patternContentUnits="objectBoundingBox"
+              width="1"
+              height="1"
+            >
+              <use
+                href="#image1_4004_1762"
+                transform="matrix(0.00181588 0 0 0.00187617 -0.226352 0)"
+              />
+            </pattern>
+            <pattern
+              id="pattern2_4004_1762"
+              patternContentUnits="objectBoundingBox"
+              width="1"
+              height="1"
+            >
+              <use
+                href="#image2_4004_1762"
+                transform="matrix(0.00204082 0 0 0.00210564 0 -0.528604)"
+              />
+            </pattern>
+            <pattern
+              id="pattern3_4004_1762"
+              patternContentUnits="objectBoundingBox"
+              width="1"
+              height="1"
+            >
+              <use
+                href="#image3_4004_1762"
+                transform="matrix(0.00154799 0 0 0.00159663 0 -0.279955)"
+              />
+            </pattern>
+            <clipPath id="clip0_4004_1762">
+              <rect
+                width="1379"
+                height="1393"
+                fill="white"
+                transform="translate(0 -90)"
+              />
+            </clipPath>
+            <image
+              id="image0_4004_1762"
+              preserveAspectRatio="none"
+              href="/images/hero/img3.jpg"
+            />
+            <image
+              id="image1_4004_1762"
+              preserveAspectRatio="none"
+              href="/images/hero/img4.jpg"
+            />
+            <image
+              id="image2_4004_1762"
+              preserveAspectRatio="none"
+              href="/images/hero/img1.jpg"
+            />
+            <image
+              id="image3_4004_1762"
+              width="646"
+              height="977"
+              preserveAspectRatio="none"
+              href="/images/hero/img2.jpg"
+            />
+          </defs>
+        </svg>
       </div>
-    </div>
+
+      <section className="relative" ref={page2Ref}>
+        {/* list section will be here */}
+      </section>
+      <Footer />
+    </main>
   );
 };
 
