@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 
 const playFair = Playfair_Display({
   variable: "--font-play-fair",
+  subsets: ["latin"],
 });
 const patua_one = Patua_One({
   variable: "--font-patua",

@@ -30,8 +30,8 @@ const GridMenu = ({ setShowGrid }: { setShowGrid: (val: string) => void }) => {
       });
     }
 
-    const selectedEl = optionRefs.current[index];
-    const highlightEl = highlightRef.current;
+    // const selectedEl = optionRefs.current[index];
+    // const highlightEl = highlightRef.current;
 
     // Animate highlight movement
     // if (highlightEl && selectedEl && containerRef.current) {

@@ -3,29 +3,28 @@
 import Image from "next/image";
 import { Flip } from "gsap/Flip";
 gsap.registerPlugin(Flip);
-import { useRef, useLayoutEffect, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 // import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitText from "gsap/SplitText";
 
 import { Draggable, InertiaPlugin } from "gsap/all";
-import { useGSAP } from "@gsap/react";
-import { title } from "process";
+
 gsap.registerPlugin(SplitText);
 gsap.registerPlugin(ScrollTrigger);
 
 gsap.registerPlugin(Draggable, InertiaPlugin);
 
-const items = [
-  { title: "Wooden Chest", src: "/images/hero/img4.jpg" },
-  { title: "Wooden Chest", src: "/images/hero/img4.jpg" },
-  { title: "Wooden Chest", src: "/images/hero/img4.jpg" },
-  { title: "Wooden Chest", src: "/images/hero/img4.jpg" },
-  { title: "Wooden Chest", src: "/images/hero/img4.jpg" },
-  { title: "Wooden Chest", src: "/images/hero/img4.jpg" },
-  { title: "Wooden Chest", src: "/images/hero/img4.jpg" },
-];
+// const items = [
+//   { title: "Wooden Chest", src: "/images/hero/img4.jpg" },
+//   { title: "Wooden Chest", src: "/images/hero/img4.jpg" },
+//   { title: "Wooden Chest", src: "/images/hero/img4.jpg" },
+//   { title: "Wooden Chest", src: "/images/hero/img4.jpg" },
+//   { title: "Wooden Chest", src: "/images/hero/img4.jpg" },
+//   { title: "Wooden Chest", src: "/images/hero/img4.jpg" },
+//   { title: "Wooden Chest", src: "/images/hero/img4.jpg" },
+// ];
 
 export default function GalleryGrid({
   id,
