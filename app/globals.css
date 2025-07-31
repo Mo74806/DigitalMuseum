@@ -49,7 +49,7 @@ body {
   stroke-width: 0.1;
   stroke-dasharray: 800;
   stroke-dashoffset: 800;
-  animation: textAnimation 5s ease forwards;
+  animation: textAnimation 6s ease forwards;
 }
 
 @keyframes textAnimation {

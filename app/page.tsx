@@ -34,19 +34,6 @@ const HeroSection = () => {
       const mainText = new SplitText(mainTextRef.current, { type: "chars" });
       const subText = new SplitText(subTextRef.current, { type: "chars" });
 
-      // gsap.to(page2Ref.current, {
-      //   duration: 1,
-      //   ease: "power2.inOut",
-      //   top: "100%",
-      //   // delay: 5,
-      // });
-
-      // gsap.fromTo(
-      //   page1Ref.current,
-      //   { top: "-100%" },
-      //   { top: "0%", duration: 1, ease: "power2.inOut" }
-      // );
-
       // gsap.fromTo(
       //   mainText.chars,
       //   { opacity: 0 },
@@ -114,7 +101,7 @@ const HeroSection = () => {
           opacity: 1,
           top: window.innerWidth > 767 ? "-100%" : "-200%",
 
-          scale: 10,
+          scale: window.innerWidth > 767 ? 10 : 1,
           rotate: "180",
         },
         {
@@ -208,6 +195,7 @@ const HeroSection = () => {
             alt="title"
             /> */}
           <svg
+            style={{ willChange: "fill" }}
             id="animated-text"
             width="100%"
             className="md:w-[24%] md:left-[0.7%] relative w-[60%]  "
@@ -237,6 +225,7 @@ const HeroSection = () => {
         </div>
 
         <svg
+          // style={{ willChange: "fill" }}
           id="whole_svg"
           className="absolute md:top-[100%]  opacity-0"
           width="100%"
