@@ -66,7 +66,7 @@ const HeroSection = () => {
           opacity: 1,
           stagger: 0.03,
           delay: 5,
-          ease: "expo.inOut",
+          ease: "power1.inOut",
         }
       );
 
@@ -78,7 +78,7 @@ const HeroSection = () => {
           // delay: 1.2,
           opacity: 1,
           bottom: 0,
-          ease: "expo.inOut",
+          ease: "power1.inOut",
         }
       );
     }
@@ -110,7 +110,7 @@ const HeroSection = () => {
       gsap.fromTo(
         "#whole_svg",
         {
-          ease: "expo.inOut",
+          ease: "power1.inOut",
           opacity: 1,
           top: window.innerWidth > 767 ? "-100%" : "-200%",
 
@@ -118,11 +118,12 @@ const HeroSection = () => {
           rotate: "180",
         },
         {
-          ease: "expo.inOut",
+          ease: "power1.inOut",
           top: window.innerWidth > 767 ? 0 : "25%",
 
           scale: 1,
           duration: 3,
+          // smoothOrigin: true,
           delay: 2,
           rotate: "0",
         }
@@ -130,13 +131,14 @@ const HeroSection = () => {
       gsap.fromTo(
         "#animated-text",
         {
-          ease: "expo.inOut",
+          ease: "power1.inOut",
+          // ease: "expo.inOut",
           // top: "-100%",
           scale: 5,
           // rotate: "180",
         },
         {
-          ease: "expo.inOut",
+          ease: "power1.inOut",
           // top: "0",
           scale: 1,
           duration: 5,
