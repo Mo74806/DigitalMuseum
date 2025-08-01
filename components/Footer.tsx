@@ -7,7 +7,7 @@ const Footer = () => {
       <p className="font-[400] order-2 md:order-1 md:pt-0 pt-[12px] text-[12px] text-white">
         Copyright ©2025 Artifacta
       </p>
-      <div className="ms-auto flex gap-x-6  order-1 md:order-2 h-fit">
+      <div className="ms-auto max-auto flex gap-x-6  order-1 md:order-2 h-fit">
         <Image
           src="./images/svg/x.svg"
           width="24"
