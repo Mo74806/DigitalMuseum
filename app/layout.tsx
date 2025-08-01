@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Patua_One } from "next/font/google";
+import { Playfair_Display, Patua_One, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 
 const playFair = Playfair_Display({
   variable: "--font-play-fair",
+  subsets: ["latin"],
+});
+const notoSans = Noto_Sans({
+  variable: "--noto-sans",
   subsets: ["latin"],
 });
 const patua_one = Patua_One({
@@ -26,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={` ${patua_one.variable}  ${playFair.variable}    antialiased`}
+        className={` ${patua_one.variable} ${notoSans.variable} ${playFair.variable}    antialiased`}
       >
         <NavBar />
         {children}
