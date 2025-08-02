@@ -84,7 +84,7 @@ const Row = ({
         <div
           onClick={(e) => handleClick(e, item)}
           key={item.id}
-          className="single-row opacity-0 relative cursor-pointer"
+          className="single-row z-[1000000000] opacity-0 relative cursor-pointer"
         >
           <div className="md:w-[300px]  w-[200px] h-auto relative">
             <Image

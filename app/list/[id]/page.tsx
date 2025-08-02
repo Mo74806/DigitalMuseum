@@ -100,8 +100,8 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
     tl2.play();
   }, [artifact]);
   return (
-    <div className="flex flex-col h-[100vh]  overflow-hidden">
-      <div className="mt-[100px] h-[61px] flex w-[100wh] border-t border-b border-creamy">
+    <div className="flex flex-col h-[100vh]  md:overflow-hidden overflow-y-auto">
+      <div className="mt-[100px] h-[61px] flex w-[100wh] md:overflow-hidden overflow-y-auto border-t border-b border-creamy">
         <div
           onClick={() => {
             router.push("/list");
