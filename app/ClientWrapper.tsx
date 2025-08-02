@@ -14,36 +14,7 @@ export default function ClientWrapper({
   children: React.ReactNode;
 }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
-  const lenisRef = useRef<Lenis | null>(null);
 
-  useEffect(() => {
-    const scroller = scrollerRef.current;
-    if (!scroller) return;
-
-    const lenis = new Lenis({
-      wrapper: scroller,
-      content: scroller,
-      lerp: 0.03,
-      syncTouch: true,
-      gestureOrientation: "both",
-    });
-
-    lenisRef.current = lenis;
-
-    // Sync ScrollTrigger
-    lenis.on("scroll", ScrollTrigger.update);
-
-    const raf = (time: number) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    };
-
-    requestAnimationFrame(raf);
-
-    return () => {
-      lenis.destroy();
-    };
-  }, []);
   return (
     <MenuProvider>
       <NavBar />

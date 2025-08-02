@@ -32,15 +32,15 @@ const Footer = () => {
           style={{ fontFamily: "var(--font-patua)" }}
           className={`bg-[#EFEBE5]  flex  px-[5px]  rounded-full xl:text-[0.94rem] text-[0.89rem]    font-[400] text-primary !patua_font`}
         >
-          <Image src="/svg/Frame 22.svg" width="48" height="48" alt="theme" />
+          <Image src="/svg/Frame22.svg" width="48" height="48" alt="theme" />
           <Image
-            src="/svg/Frame 20.svg"
+            src="/svg/Frame20.svg"
             width="48"
             height="48"
             alt="large-font"
           />
           <Image
-            src="/svg/Frame 19.svg"
+            src="/svg/Frame19.svg"
             width="48"
             height="48"
             alt="small-font"
