@@ -42,8 +42,8 @@ export default function GalleryGrid({
             maxX: 300,
             maxY:
               window.innerWidth > 767
-                ? -window.innerHeight
-                : -(window.innerHeight - 500),
+                ? -(window.innerHeight - 300)
+                : -(window.innerHeight - 800),
             minY: 200,
           },
           inertia: true,

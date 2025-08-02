@@ -118,7 +118,7 @@ const Menu = ({ id }: { id: string }) => {
       <div
         id={id}
         ref={containerRef}
-        className="relative  md:flex hidden z-[10000]  top-[100px] bg-creamy mx-auto  gap-x-[10px] w-fit px-[6px] py-[5px] rounded-full"
+        className="relative  lg:flex hidden z-[10000]  top-[100px] bg-creamy mx-auto  gap-x-[10px] w-fit px-[6px] py-[5px] rounded-full"
       >
         {/* Animated Highlight */}
         <div
@@ -151,7 +151,7 @@ const Menu = ({ id }: { id: string }) => {
       </div>
       <div
         id="small-menu"
-        className=" md:hidden  absolute  z-[10000] p-0 text-center items-center justify-center  w-[50px]  h-[50px]    top-[2.5%] right-[17px]  bg-creamy   flex  rounded-full"
+        className=" lg:hidden  absolute  z-[10000] p-0 text-center items-center justify-center  w-[50px]  h-[50px]    top-[2.5%] right-[17px]  bg-creamy   flex  rounded-full"
       >
         <div className="absolute right-[13px] top-[14px]">
           <BurgerMenu onClick={() => setOpenMenu((prev) => !prev)} />
