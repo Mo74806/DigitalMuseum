@@ -19,8 +19,9 @@ const Menu = ({ id }: { id: string }) => {
 
   useGSAP(() => {
     if (openMenu) {
+      const tl = gsap.timeline();
       //open menu animation
-      gsap.fromTo(
+      tl.fromTo(
         "#small-menu",
         {
           borderTopLeftRadius: "50%",
@@ -36,9 +37,7 @@ const Menu = ({ id }: { id: string }) => {
           ease: "power1.inOut",
           duration: 1,
         }
-      );
-      gsap.to("#small-menu-options > div ", {
-        delay: 1,
+      ).to("#small-menu-options > div ", {
         opacity: 1,
         stagger: 0.1,
         ease: "power1.inOut",
@@ -47,16 +46,14 @@ const Menu = ({ id }: { id: string }) => {
       });
     } else if (!openMenu && !firstLoad) {
       //close menu animation
-      gsap.to("#small-menu", {
+      const tl = gsap.timeline();
+      tl.to("#small-menu", {
         width: "50px",
         zIndex: "1000000000",
         height: "50px",
         ease: "power1.inOut",
         duration: 1,
-      });
-
-      gsap.to("#small-menu", {
-        delay: "2",
+      }).to("#small-menu", {
         ease: "power1.inOut",
         borderRadius: "50%",
         duration: 0.5,

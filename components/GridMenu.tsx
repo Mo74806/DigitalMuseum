@@ -52,7 +52,6 @@ const GridMenu = ({ setShowGrid }: { setShowGrid: (val: string) => void }) => {
             optionRefs.current[i] = el;
           }}
           onClick={() => {
-            console.log("object");
             setShowGrid(item === "Switch to grid" ? "grid" : "list");
 
             setSelectedOption(item);

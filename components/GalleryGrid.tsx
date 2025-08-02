@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { memo, useRef } from "react";
 import gsap from "gsap";
 import SplitText from "gsap/SplitText";
 import { gridList1, gridList2, gridList3, list } from "@/constants";
@@ -11,7 +11,7 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(SplitText, Draggable, InertiaPlugin);
 
-export default function GalleryGrid({
+function GalleryGrid({
   id,
   showGrid = true,
   className,
@@ -105,3 +105,4 @@ export default function GalleryGrid({
     </section>
   );
 }
+export default memo(GalleryGrid);

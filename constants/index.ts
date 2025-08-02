@@ -142,3 +142,15 @@ export const list = [
     img: "/images/list/9.png",
   },
 ];
+
+export const singleArtifacts = {
+  id: "1",
+  title: "Mshatta Façade",
+  creator: "Mansoor Alemy",
+  quote: `"These scenes of creatures drinking water from one fountain together; for me, it shows peace."`,
+  description: [
+    "The Mshatta Facade is a richly decorated stone wall from an 8th-century Desert Castle of Jordan. It is now housed at the Museum of Islamic Art in Berlin. One side of the limestone relief carvings shows animals and mythical creatures harmoniously sharing water from a fountain.",
+    "Mansoor, originally from Afghanistan and now living in Germany, unexpectedly found that these images stirred his memories of life in Kabul, where many cultures lived side by side. For Mansoor, this piece of early Islamic art symbolises unity through cultural exchange.",
+  ],
+  images: ["/images/image-2.jpg", "/images/image-3.jpg", "/images/image-4.jpg"],
+};

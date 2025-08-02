@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 const GrabMenu = () => {
   return (
@@ -37,4 +37,4 @@ const GrabMenu = () => {
   );
 };
 
-export default GrabMenu;
+export default memo(GrabMenu);

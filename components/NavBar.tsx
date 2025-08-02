@@ -1,14 +1,11 @@
 "use client";
 import Image from "next/image";
-// import clsx from "clsx";
-// import logo from "./svg/Group 4.svg";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRouter } from "next/navigation";
 import MorphSoundBtn from "./SVG/MorphSoundBtn";
-// import logo from "./svg/Artifacta.svg";
 const NavBar = () => {
   const router = useRouter();
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
@@ -68,4 +65,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default memo(NavBar);

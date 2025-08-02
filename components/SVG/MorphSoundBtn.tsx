@@ -14,7 +14,6 @@ export default function MorphSoundBtn({ muted }: { muted: boolean }) {
   const wave2Path =
     "M16.3125 2.3125C16.3125 2.3125 17.875 3.875 17.875 6.6875C17.875 9.5 16.3125 11.0625 16.3125 11.0625";
 
-  // X lines placed in the same positions as the waves
   const mute1Path = "M14 4.5L19 9.5";
   const mute2Path = "M19 4.5L14 9.5";
 
