@@ -1,19 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import React, { useRef } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import type { Swiper as SwiperType } from "swiper";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
-import { easeIn } from "framer-motion";
+import MoreImagesBtn from "@/components/MoreImagesBtn";
+import ImagesSwiper from "@/components/ImagesSwiper";
 gsap.registerPlugin(SplitText);
 const Details = () => {
-  const swiperRef = useRef<SwiperType | null>(null);
   useGSAP(() => {
     const tl = gsap.timeline();
     tl.fromTo("#img-section", { left: "-50%" }, { left: 0 });
@@ -132,38 +131,13 @@ const Details = () => {
           className="bg-[#C7C6C50D] relative rounded-[16px] lg:!w-[55%] lg:!h-full !h-[40vh] "
         >
           {/* Vertical Swiper */}
-          <div className="bg-[#C7C6C50D]  mx-auto rounded-[16px]  lg:h-full h-[40vh] overflow-hidden">
-            <Swiper
-              direction="vertical"
-              slidesPerView={1}
-              loop={true}
-              speed={800}
-              pagination={{ clickable: true }}
-              modules={[Pagination]}
-              onSwiper={(swiper) => (swiperRef.current = swiper)}
-              className="lg:w-full w-[100%] lg:!h-full !h-[40vh] mx-auto  "
-            >
-              {[
-                "/images/image-2.jpg",
-                "/images/image-3.jpg",
-                "/images/image-4.jpg",
-              ].map((src, i) => (
-                <SwiperSlide key={i}>
-                  <div
-                    className="relative w-full h-full cursor-pointer"
-                    onClick={() => swiperRef.current?.slideNext()}
-                  >
-                    <Image
-                      src={src}
-                      alt={`image${i + 1}`}
-                      fill
-                      className="object-scale-down mx-auto"
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>{" "}
+          <ImagesSwiper
+            images={[
+              "/images/image-2.jpg",
+              "/images/image-3.jpg",
+              "/images/image-4.jpg",
+            ]}
+          />
         </div>
         <div
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}

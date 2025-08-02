@@ -9,24 +9,9 @@ import GrabMenu from "@/components/GrabMenu";
 
 const ListPage = () => {
   const [showGrid, setShowGrid] = useState("grid");
-  // useEffect(() => {
-  //   //change the list view &starting  animation for the bg svg
-  //   gsap.from("#bg-svg > g", {
-  //     scale: "1.2",
-  //     duration: 2,
-  //     ease: "power1.inOut",
-  //     rotate: "-50",
-  //   });
-  // }, [showGrid]);
 
   useEffect(() => {
     console.log("object");
-    // const bg = gsap.utils.selector("#bg-svg > g");
-
-    // gsap.set(bg, {
-    //   scale: 1.2,
-    //   rotate: -50,
-    // });
 
     gsap.fromTo(
       "#bg-svg > g",
@@ -38,49 +23,43 @@ const ListPage = () => {
         ease: "power1.inOut",
       }
     );
-    // gsap.from("#bg-svg > g", {
-    //   scale: "1.2",
-    //   duration: 2,
-    //   ease: "power1.inOut",
-    //   rotate: "-50",
-    // });
-  }, [showGrid]); // You could remove showGrid if you want it every time
+  }, [showGrid]);
   useGSAP(() => {
     //starting animation
     const tl = gsap.timeline();
-    // tl.from("#bg-svg > g", {
-    //   scale: "1.2",
-    //   duration: 2,
-    //   ease: "power1.inOut",
-    //   rotate: "-50",
-    // });
-    tl.from(
-      "#main-menu",
-      {
-        y: 400,
-        duration: 1,
-        ease: "power1.inOut",
-      },
-      "-=2"
-    ).fromTo(
-      "#grid",
-      {
-        y: "100%",
-      },
-      {
-        display: "inline",
-        y: "0%",
-        ease: "power1.inOut",
-        duration: 2,
-      },
-      "-=1.5"
-    );
+    tl.from("#list-page", {
+      top: "0%",
+      duration: 1,
+      ease: "power1.inOut",
+    })
+      .from(
+        "#main-menu",
+        {
+          y: 800,
+          duration: 1,
+          ease: "power1.inOut",
+        },
+        "-=1"
+      )
+      .fromTo(
+        "#grid",
+        {
+          y: "100%",
+        },
+        {
+          display: "inline",
+          y: "0%",
+          ease: "power1.inOut",
+          duration: 2,
+        },
+        "-=1.5"
+      );
   }, []);
 
   return (
     <div
       id="list-page"
-      className="  bg-[#253143]a relative    justify-center  overflow-hidden   !w-[100wh]  !h-[100vh]"
+      className=" top-[-50%] bg-[#253143]a relative    justify-center  overflow-hidden   !w-[100wh]  !h-[100vh]"
     >
       {/* artifacta gallery */}
       <GalleryGrid

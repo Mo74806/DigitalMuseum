@@ -55,7 +55,7 @@ const HeroSection = () => {
         {
           ease: "power1.inOut",
           scale: 1,
-          duration: 5,
+          duration: window.innerWidth > 767 ? 5 : 2,
         }
       );
       tl.fromTo(
@@ -71,7 +71,7 @@ const HeroSection = () => {
           opacity: "1",
           top: window.innerWidth > 767 ? 0 : "25%",
           scale: 1,
-          duration: 2,
+          duration: window.innerWidth > 767 ? 2 : 1,
           rotate: "0",
         }
       );
@@ -130,15 +130,11 @@ const HeroSection = () => {
       {loading && <div> </div>}
 
       <div
-        // style={{
-        //   boxShadow:
-        //     "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
-        // }}
         ref={page1Ref}
         id="landing"
         className="relative flex w-full h-[100vh] bg-[#253143] overflow-hidden  md:items-center items-start justify-center"
       >
-        <div className=" flex   flex-col w-full md:pt-0 pt-[150px] items-center justify-center">
+        <div className=" flex z-2  flex-col w-full md:pt-0 pt-[150px] items-center justify-center">
           {/* main heading */}
           <svg
             style={{ willChange: "fill" }}
@@ -160,7 +156,7 @@ const HeroSection = () => {
             <p
               id="sub_text"
               ref={subTextRef}
-              className=" break-words whitespace-normal xl:w-[25%] lg:w-[35%] pt-[30px] w-[90%] mb-[30px] text-[#EFEBE5] font-[400] xl:text-[1rem] lg:text-[0.8rem] md:text-[0.7rem] text-center"
+              className=" break-words  whitespace-normal xl:w-[25%] lg:w-[35%] pt-[30px] w-[90%] mb-[30px] text-[#EFEBE5] font-[400] xl:text-[1rem] lg:text-[0.8rem] md:text-[0.7rem] text-center"
             >
               Exploring identity through objects in a world shaped by migration.
             </p>

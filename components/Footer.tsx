@@ -7,7 +7,12 @@ import React from "react";
 const Footer = () => {
   useGSAP(() => {
     gsap.to("#footer", {
-      delay: 5,
+      delay:
+        window.location.pathname === "/"
+          ? window.innerWidth > 767
+            ? 5
+            : 3
+          : 0,
       bottom: 0,
       ease: "power1.inOut",
     });
@@ -15,12 +20,12 @@ const Footer = () => {
   return (
     <div
       id="footer"
-      className="bg-[#253143]/80 z-[10000]  border-t px-[40px] flex md:flex-row  flex-col  py-[12px] border-[#6D6E7D]  items-center w-full fixed  bottom-[-100px]"
+      className="bg-[#253143]/80 z-[10000]  border-t px-[40px] flex md:flex-row  flex-col  py-[12px] border-[#6D6E7D]  items-center w-full fixed  bottom-[-105px]"
     >
       <p className="font-[400] order-2 md:order-1 md:pt-0 pt-[12px] text-[12px] text-white">
         Copyright ©2025 Artifacta
       </p>
-      <div className="ms-auto max-auto flex gap-x-6  order-1 md:order-2 h-fit">
+      <div className="ms-auto max-auto  text-center  justify-center md:w-auto w-full flex gap-x-6  order-1 md:order-2 h-fit">
         <Image
           src="./images/svg/x.svg"
           width="24"

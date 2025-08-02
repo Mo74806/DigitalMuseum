@@ -6,13 +6,13 @@ import gsap from "gsap";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { MorphSVGPlugin } from "gsap/MorphSVGPlugin";
-import BurgerMenu from "./MorphBurgerBtn";
+import BurgerMenu from "./SVG/MorphBurgerBtn";
 import { useMenu } from "@/context/useMenu";
 
 gsap.registerPlugin(MorphSVGPlugin);
 
 const Menu = ({ id }: { id: string }) => {
-  // const [selectedOption, setSelectedOption] = useState("All Objects");
+  const [firstLoad, setFirstLoad] = useState(true);
   const { selectedOption, changeSelectedOption } = useMenu();
   const [openMenu, setOpenMenu] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -21,14 +21,24 @@ const Menu = ({ id }: { id: string }) => {
 
   useGSAP(() => {
     if (openMenu) {
-      gsap.to("#small-menu", {
-        borderRadius: "20px",
-        width: "90%",
-        height: "85%",
-        zIndex: "1000000000",
-        ease: "power1.inOut",
-        duration: 1,
-      });
+      //open menu animation
+      gsap.fromTo(
+        "#small-menu",
+        {
+          borderTopLeftRadius: "50%",
+          borderBottomLeftRadius: "50%",
+          width: "50px",
+          height: "50px",
+        },
+        {
+          borderRadius: "20px",
+          width: "92%",
+          height: "85%",
+          zIndex: "1000000000",
+          ease: "power1.inOut",
+          duration: 1,
+        }
+      );
       gsap.to("#small-menu-options > div ", {
         delay: 1,
         opacity: 1,
@@ -37,20 +47,16 @@ const Menu = ({ id }: { id: string }) => {
         bottom: 0,
         duration: "1",
       });
-    } else {
+    } else if (!openMenu && !firstLoad) {
+      //close menu animation
       gsap.to("#small-menu", {
         width: "50px",
         zIndex: "1000000000",
+        height: "50px",
         ease: "power1.inOut",
         duration: 1,
       });
-      gsap.to("#small-menu", {
-        delay: "1",
-        height: "50px",
-        zIndex: "1000000000",
-        ease: "power1.inOut",
-        duration: 0.5,
-      });
+
       gsap.to("#small-menu", {
         delay: "2",
         ease: "power1.inOut",
@@ -58,6 +64,7 @@ const Menu = ({ id }: { id: string }) => {
         duration: 0.5,
       });
     }
+    setFirstLoad(false);
   }, [openMenu, selectedOption]);
   useEffect(() => {
     const index = [
@@ -156,7 +163,7 @@ const Menu = ({ id }: { id: string }) => {
         {!openMenu ? null : (
           <div
             id="small-menu-options"
-            className="flex flex-col  overflow-hidden w-full"
+            className="flex flex-col gap-y-1 overflow-hidden w-full"
           >
             {[
               "All Objects",
@@ -170,23 +177,21 @@ const Menu = ({ id }: { id: string }) => {
             ].map((item, i) => (
               <div
                 key={i}
-                ref={(el) => {
-                  optionRefs.current[i] = el;
-                }}
                 onClick={() => {
                   changeSelectedOption(item);
                   setOpenMenu(false);
                 }}
-                className={`opacity-0 bottom-[-300px] w-full  ${
-                  selectedOption === item && "bg-white font-[500] scale-[120%]"
-                } border-b border-[#6D6E7D]  text-[1.2rem] relative  inline  text-center  py-[15px] z-10  cursor-pointer  `}
+                style={{ fontStyle: "italic" }}
+                className={`opacity-0 bottom-[-300px]     ${
+                  selectedOption === item &&
+                  "bg-[#253143]  font-[500] scale-[110%]  text-white "
+                }    text-[1.2rem] relative  text-[#253143]  bordre-[#6D6E7D]  inline  text-center !w-auto  py-[15px] z-10  cursor-pointer  `}
               >
                 {item}
               </div>
             ))}
           </div>
         )}
-        {/* </div> */}
       </div>
     </>
   );
