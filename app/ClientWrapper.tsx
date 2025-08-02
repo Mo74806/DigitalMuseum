@@ -23,12 +23,9 @@ export default function ClientWrapper({
     const lenis = new Lenis({
       wrapper: scroller,
       content: scroller,
-      smooth: true,
-      smoothTouch: true,
-      // touchMultiplier: 1,
       lerp: 0.03,
       syncTouch: true,
-      gestureOrientation: "vertical",
+      gestureOrientation: "both",
     });
 
     lenisRef.current = lenis;

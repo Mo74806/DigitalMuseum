@@ -80,7 +80,7 @@ const Row = ({
       ref={rowRef}
       className={`group row-data h-full relative flex w-full gap-x-[60px] md:gap-x-[100px] ${className}`}
     >
-      {images.map((item, i) => (
+      {images.map((item) => (
         <div
           onClick={(e) => handleClick(e, item)}
           key={item.id}
