@@ -42,10 +42,11 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
         {
           opacity: 1,
           borderBottom: "1px solid #6D6E7D",
-          // duration: 2,
+          duration: 0.5,
           borderWidth: "100%",
           ease: "power1.inOut",
-        }
+        },
+        "=-3"
       )
       .fromTo(
         "#creator > span",
@@ -163,7 +164,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
         <div
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          className=" lg:!w-[45%] !h-full    md:pb-0 pb-[100px] lg:overflow-y-hidden  overflow-y-scroll"
+          className=" lg:!w-[45%]  lg:overflow-y-scroll  overflow-y-auto    md:pb-0 pb-[100px] "
         >
           <h1
             id="title"
