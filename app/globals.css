@@ -46,10 +46,10 @@ body {
   border: 1px solid red;
   fill: transparent;
   stroke: #fff;
-  stroke-width: 0.1;
+  strokewidth: 0.1;
   stroke-dasharray: 800;
   stroke-dashoffset: 800;
-  animation: textAnimation 6s ease forwards;
+  animation: textAnimation 5s ease forwards;
 }
 
 @keyframes textAnimation {
@@ -92,3 +92,7 @@ body {
     }
   }
 }
+
+/* #whole-svg g path {
+  filter: drop-shadow(4px 4px 12px rgb(137, 8, 8));
+} */

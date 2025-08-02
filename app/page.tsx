@@ -4,8 +4,10 @@ import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
-// import Img from "next/image";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
+// Register plugin
+gsap.registerPlugin(ScrollToPlugin);
 const IMAGES = [
   "/images/hero/img1.jpg",
   "/images/hero/img2.jpg",
@@ -13,62 +15,14 @@ const IMAGES = [
   "/images/hero/img4.jpg",
 ];
 
-const LoadingScreen = () => {
-  return (
-    <div className="fixed inset-0 bg-black flex items-center justify-center z-[9999]">
-      <span className="text-white text-xl">Loading...</span>
-    </div>
-  );
-};
-
 const HeroSection = () => {
   const [loading, setLoading] = useState(true);
+  const pageRef = useRef(null);
   const page1Ref = useRef(null);
+  const page2Ref = useRef(null);
   const mainTextRef = useRef(null);
   const subTextRef = useRef(null);
   const router = useRouter();
-
-  const handleAnimation = () => {
-    if (page1Ref.current && mainTextRef.current) {
-      // const mainText = new SplitText(mainTextRef.current, { type: "chars" });
-      const subText = new SplitText(subTextRef.current, { type: "chars" });
-
-      // gsap.fromTo(
-      //   mainText.chars,
-      //   { opacity: 0 },
-      //   {
-      //     opacity: 1,
-      //     stagger: 0.05,
-      //     ease: "expo.inOut",
-      //     duration: 1.2,
-      //   }
-      // );
-
-      gsap.fromTo(
-        subText.chars,
-        { opacity: 0 },
-        {
-          // delay: 1.2,
-          opacity: 1,
-          stagger: 0.03,
-          delay: 5,
-          ease: "power1.inOut",
-        }
-      );
-
-      gsap.fromTo(
-        "#landing-btn",
-        { opacity: 0, bottom: -200 },
-        {
-          delay: 5,
-          // delay: 1.2,
-          opacity: 1,
-          bottom: 0,
-          ease: "power1.inOut",
-        }
-      );
-    }
-  };
 
   useEffect(() => {
     const preloadImages = async () => {
@@ -89,71 +43,76 @@ const HeroSection = () => {
   }, []);
 
   useEffect(() => {
+    //handle starting animation
+    const tl = gsap.timeline();
     if (!loading) {
-      handleAnimation();
-      // gsap.set("#whole_svg", { display: "hidden" });
-
-      gsap.fromTo(
+      tl.fromTo(
+        "#animated-text",
+        {
+          ease: "power1.inOut",
+          scale: window.innerWidth > 767 ? 5 : 3,
+        },
+        {
+          ease: "power1.inOut",
+          scale: 1,
+          duration: 5,
+        }
+      );
+      tl.fromTo(
         "#whole_svg",
         {
           ease: "power1.inOut",
-          opacity: 1,
           top: window.innerWidth > 767 ? "-100%" : "-200%",
-
           scale: window.innerWidth > 767 ? 10 : 1,
           rotate: "180",
         },
         {
           ease: "power1.inOut",
+          opacity: "1",
           top: window.innerWidth > 767 ? 0 : "25%",
-
           scale: 1,
-          duration: 3,
-          // smoothOrigin: true,
-          delay: 2,
+          duration: 2,
           rotate: "0",
         }
       );
-      gsap.fromTo(
-        "#animated-text",
+      const subText = new SplitText("#sub_text", { type: "words" });
+      tl.fromTo(
+        subText.words,
+        { opacity: 0 },
         {
+          opacity: 1,
+          stagger: 0.05,
           ease: "power1.inOut",
-          // ease: "expo.inOut",
-          // top: "-100%",
-          scale: 5,
-          // rotate: "180",
-        },
-        {
-          ease: "power1.inOut",
-          // top: "0",
-          scale: 1,
-          duration: 5,
-          // rotate: "0",
         }
+      ).fromTo(
+        "#landing-btn",
+        { opacity: 0, bottom: -300 },
+        {
+          duration: 1,
+          opacity: 1,
+          bottom: 0,
+          ease: "power1.inOut",
+        },
+        "-=1.5"
       );
     }
   }, [loading]);
 
   const handleNavigateToListPage = () => {
-    if (page1Ref.current && mainTextRef.current) {
-      // const mainText = new SplitText(mainTextRef.current, { type: "chars" });
-      // const subText = new SplitText(subTextRef.current, { type: "chars" });
+    if (page1Ref.current) {
       const tl = gsap.timeline();
       tl.to("#whole_svg", {
         opacity: 1,
         ease: "expo.inOut",
         top: "-100%",
-        scale: 10,
+        scale: window.innerWidth > 767 ? 10 : 1,
         rotate: "180",
-      });
-      tl.fromTo(
+      }).fromTo(
         page1Ref.current,
         { top: "0%", ease: "power2.inOut" },
         {
           top: "-100%",
-          // delay: 1,
-          // duration: 1,
-          onComplete: () => {
+          onStart: () => {
             router.push("/list");
           },
         }
@@ -161,43 +120,31 @@ const HeroSection = () => {
       tl.play();
     }
   };
+
   return (
-    <main id="main-screen" className="overflow-hidden h-[100vh] relative">
-      {loading && <LoadingScreen />}
+    <main
+      ref={pageRef}
+      id="main-screen"
+      className="  h-[100vh] overflow-hidden relative"
+    >
+      {loading && <div> </div>}
 
       <div
+        // style={{
+        //   boxShadow:
+        //     "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+        // }}
         ref={page1Ref}
         id="landing"
-        className="relative flex w-full h-[100vh] bg-[#253143] overflow-hidden md:items-center items-start justify-center"
+        className="relative flex w-full h-[100vh] bg-[#253143] overflow-hidden  md:items-center items-start justify-center"
       >
-        <div className="z-1 flex   flex-col w-full md:pt-0 pt-[150px] items-center justify-center">
-          <h1
-            id="main_text"
-            ref={mainTextRef}
-            style={{
-              wordBreak: "keep-all",
-              wordWrap: "break-word",
-              // lineHeight: "40px",
-            }}
-            className="mb-[30px]  hidden text-white  xl:w-[25%] lg:w-[35%]   md:w-[50%] w-[100%] font-[400] xl:text-[3.69rem] lg:text-[3rem] text-[2rem] text-center"
-          >
-            Objects, Voices <br />
-            and Global <br />
-            Journeys
-          </h1>
-          {/* <Img
-            id="animated-text"
-            src="/images/svg/landingTitle.svg"
-            width="100"
-            height="100"
-            className="md:w-[24%] md:left-[0.7%] relative w-[60%]  "
-            alt="title"
-            /> */}
+        <div className=" flex   flex-col w-full md:pt-0 pt-[150px] items-center justify-center">
+          {/* main heading */}
           <svg
             style={{ willChange: "fill" }}
             id="animated-text"
             width="100%"
-            className="md:w-[24%] md:left-[0.7%] relative w-[60%]  "
+            className="mx-auto md:w-[24%] md:left-[0.7%] relative w-[60%]  "
             height="100%"
             viewBox="0 0 876 366"
             fill="none"
@@ -208,23 +155,26 @@ const HeroSection = () => {
               fill="white"
             />
           </svg>
-
-          <span
-            id="sub_text"
-            ref={subTextRef}
-            className="xl:w-[25%] lg:w-[35%] pt-[30px] w-[90%] mb-[30px] text-[#EFEBE5] font-[400] xl:text-[1rem] lg:text-[0.8rem] md:text-[0.7rem] text-center"
-          >
-            Exploring identity through objects in a world shaped by migration.
-          </span>
+          {/* sub heading */}
+          {!loading && (
+            <p
+              id="sub_text"
+              ref={subTextRef}
+              className=" break-words whitespace-normal xl:w-[25%] lg:w-[35%] pt-[30px] w-[90%] mb-[30px] text-[#EFEBE5] font-[400] xl:text-[1rem] lg:text-[0.8rem] md:text-[0.7rem] text-center"
+            >
+              Exploring identity through objects in a world shaped by migration.
+            </p>
+          )}
+          {/* CTA button */}
           <Button
+            containerClass="opacity-0"
             onClick={() => handleNavigateToListPage()}
             id="landing-btn"
             title="Enter Exhibition"
           />
         </div>
-
+        {/* circle svg mask */}
         <svg
-          // style={{ willChange: "fill" }}
           id="whole_svg"
           className="absolute md:top-[100%]  opacity-0"
           width="100%"
@@ -280,12 +230,13 @@ const HeroSection = () => {
               style={{ maskType: "alpha" }}
               maskUnits="userSpaceOnUse"
               x="-1"
+              className="left-[-100px] relative border"
               y="41"
               width="915"
               height="790"
             >
               <path
-                className="aopacity-0"
+                // className="aopacity-0"
                 d="M55.7149 828.815L120.582 806.031C128.774 803.261 132.847 794.242 130.361 786.135C88.6277 658.507 88.7343 516.393 140.436 381.261C168.779 307.18 209.849 242.023 260.532 187.376C266.416 180.914 266.393 171.267 260.059 165.113L210.737 117.319C204.403 111.164 194.126 111.283 188.242 117.733C128.585 182.014 80.0444 258.629 46.8119 345.458C-13.7217 503.645 -13.5441 670.142 35.766 819.323C38.5245 827.537 47.688 831.964 55.8807 829.194L55.7031 828.815H55.7149Z"
                 fill="#EFEBE5"
               />

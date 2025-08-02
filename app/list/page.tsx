@@ -1,8 +1,7 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import GalleryGrid from "@/components/GalleryGrid";
 import gsap from "gsap";
-
 import { useGSAP } from "@gsap/react";
 import Menu from "@/components/Menu";
 import GridMenu from "@/components/GridMenu";
@@ -10,57 +9,98 @@ import GrabMenu from "@/components/GrabMenu";
 
 const ListPage = () => {
   const [showGrid, setShowGrid] = useState("grid");
-  const [showGallery, setShowGallery] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  useGSAP(() => {
-    gsap.from("#main-menu", {
-      y: 200,
-    });
-  }, []);
-
-  useGSAP(() => {
-    gsap.from("#grid", {
-      y: "100%",
-      ease: "power1.inOut",
-      duration: 2,
-    });
-  }, [showGallery]);
-  useGSAP(() => {
-    setTimeout(() => {
-      setShowGallery(true);
-    }, 500);
-    gsap.from("#bg-svg", {
-      scale: 1.4,
-      top: "-10%",
-      duration: 1,
-      // right: "-20%",
-      rotate: "-30",
-    });
-
-    gsap.from(containerRef.current, { top: "50%", duration: 1 });
-  }, [showGrid]);
+  // useEffect(() => {
+  //   //change the list view &starting  animation for the bg svg
+  //   gsap.from("#bg-svg > g", {
+  //     scale: "1.2",
+  //     duration: 2,
+  //     ease: "power1.inOut",
+  //     rotate: "-50",
+  //   });
+  // }, [showGrid]);
 
   useEffect(() => {
-    console.log(showGrid);
-  }, [showGrid]);
+    console.log("object");
+    // const bg = gsap.utils.selector("#bg-svg > g");
+
+    // gsap.set(bg, {
+    //   scale: 1.2,
+    //   rotate: -50,
+    // });
+
+    gsap.fromTo(
+      "#bg-svg > g",
+      { scale: "1.2", duration: 2, rotate: "-50" },
+      {
+        scale: 1,
+        rotate: 0,
+        duration: 2,
+        ease: "power1.inOut",
+      }
+    );
+    // gsap.from("#bg-svg > g", {
+    //   scale: "1.2",
+    //   duration: 2,
+    //   ease: "power1.inOut",
+    //   rotate: "-50",
+    // });
+  }, [showGrid]); // You could remove showGrid if you want it every time
+  useGSAP(() => {
+    //starting animation
+    const tl = gsap.timeline();
+    // tl.from("#bg-svg > g", {
+    //   scale: "1.2",
+    //   duration: 2,
+    //   ease: "power1.inOut",
+    //   rotate: "-50",
+    // });
+    tl.from(
+      "#main-menu",
+      {
+        y: 400,
+        duration: 1,
+        ease: "power1.inOut",
+      },
+      "-=2"
+    ).fromTo(
+      "#grid",
+      {
+        y: "100%",
+      },
+      {
+        display: "inline",
+        y: "0%",
+        ease: "power1.inOut",
+        duration: 2,
+      },
+      "-=1.5"
+    );
+  }, []);
+
   return (
     <div
       id="list-page"
-      className="  bg-[#253143] relative    justify-center  overflow-hidden   !w-[100wh]  !h-[100vh]"
+      className="  bg-[#253143]a relative    justify-center  overflow-hidden   !w-[100wh]  !h-[100vh]"
     >
-      {showGallery && (
-        <GalleryGrid id="grid" showGrid={showGrid === "grid" ? true : false} />
-      )}
+      {/* artifacta gallery */}
+      <GalleryGrid
+        id="grid"
+        className=""
+        showGrid={showGrid === "grid" ? true : false}
+      />
+      {/* category filter menu */}
       <Menu id="main-menu" />
       {showGrid === "grid" ? (
+        // grab sign
         <div className="absolute md:bottom-[20%] bottom-[25%]    h-auto flex mx-auto !w-[100%] ">
           <GrabMenu />
         </div>
       ) : null}
+      {/* gallery deisplay options [grid / list] */}
       <div className="absolute md:bottom-[10%]  bottom-[15%]   h-auto flex mx-auto !w-[100%] ">
         <GridMenu setShowGrid={setShowGrid} />
       </div>
-
+      {/* background svg */}
       <svg
         id="bg-svg"
         className="absolute  scale-100 top-0 right-0"

@@ -3,13 +3,19 @@
 import Image from "next/image";
 import { Flip } from "gsap/Flip";
 gsap.registerPlugin(Flip);
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 // import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitText from "gsap/SplitText";
-
+import { gridList1, gridList2, gridList3, list } from "@/constants";
 import { Draggable, InertiaPlugin } from "gsap/all";
+import { useMenu } from "@/context/useMenu";
+import { useRouter } from "next/navigation";
+// import { Flip } from "gsap/Flip";
+// import SplitText from "gsap/SplitText";
+
+gsap.registerPlugin(Flip, SplitText);
 
 gsap.registerPlugin(SplitText);
 gsap.registerPlugin(ScrollTrigger);
@@ -18,57 +24,60 @@ gsap.registerPlugin(Draggable, InertiaPlugin);
 
 export default function GalleryGrid({
   id,
-  showGrid,
+  showGrid = true,
+  className,
 }: {
   id: string;
   showGrid: boolean;
+  className: string;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const draggableRef = useRef<Draggable[] | null>(null);
 
   useEffect(() => {
-    if (!containerRef.current || !contentRef.current) return;
+    // if (!containerRef.current || !contentRef.current) return;
+    if (containerRef.current && contentRef.current) {
+      const container = containerRef.current;
+      const content = contentRef.current;
+      gsap.set(content, { x: 0, y: 0 });
 
-    const container = containerRef.current;
-    const content = contentRef.current;
-    gsap.set(content, { x: 0, y: 0 });
+      if (showGrid)
+        draggableRef.current = Draggable.create(content, {
+          type: "x,y",
+          bounds: {
+            minX:
+              window.innerWidth > 767
+                ? -container.clientWidth + 800
+                : -container.clientWidth + 500,
+            maxX: 200,
+            maxY:
+              window.innerWidth > 767
+                ? -window.innerHeight
+                : -(window.innerHeight - 300),
+            minY: 200,
+          },
+          inertia: true,
+          edgeResistance: 0.85,
+          allowContextMenu: true,
+        });
 
-    if (showGrid)
-      draggableRef.current = Draggable.create(content, {
-        type: "x,y",
-        bounds: {
-          minX:
-            window.innerWidth > 767
-              ? -container.clientWidth + 800
-              : -container.clientWidth + 500,
-          maxX: 200,
-          maxY:
-            window.innerWidth > 767
-              ? -window.innerHeight
-              : -(window.innerHeight - 300),
-          minY: 200,
-        },
-        inertia: true,
-        edgeResistance: 0.85,
-        allowContextMenu: true,
-      });
-
-    return () => {
-      if (draggableRef.current?.[0]) {
-        draggableRef.current[0].kill();
-        draggableRef.current = null;
-      }
-    };
+      return () => {
+        if (draggableRef.current?.[0]) {
+          draggableRef.current[0].kill();
+          draggableRef.current = null;
+        }
+      };
+    }
   }, [showGrid]);
 
   return (
     <section
       id={id}
       ref={containerRef}
-      className={`absolute      z-[20]   ${
+      className={`absolute  mx-auto     z-[20]   ${
         showGrid ? "!w-fit overflow-hidden h-[100vh]" : "!w-[100%] "
-      }       mx-auto`}
+      }    ${className}  `}
     >
       <div
         ref={contentRef}
@@ -83,57 +92,23 @@ export default function GalleryGrid({
             className={`
               
           `}
-            images={[
-              "/images/hero/img4.jpg",
-              "/images/hero/img2.jpg",
-              "/images/hero/img3.jpg",
-              "/images/hero/img3.jpg",
-              "/images/hero/img4.jpg",
-              "/images/hero/img4.jpg",
-              "/images/hero/img4.jpg",
-              "/images/hero/img4.jpg",
-              "/images/hero/img4.jpg",
-              "/images/hero/img4.jpg",
-              "/images/hero/img4.jpg",
-              "/images/hero/img4.jpg",
-            ]}
+            images={list}
           />
         ) : (
           <>
             <Row
-              className={` md:translate-x-[-200px] translate-x-[-150px] !mb-[154px]
+              className={` md:translate-x-[-200px] translate-x-[-150px] md:mb-[154px] mb-[50px]
            `}
-              images={[
-                "/images/hero/img4.jpg",
-                "/images/hero/img4.jpg",
-                "/images/hero/img4.jpg",
-                "/images/hero/img4.jpg",
-                "/images/hero/img4.jpg",
-                "/images/hero/img4.jpg",
-              ]}
+              images={gridList1}
             />
             <Row
-              className={`md:translate-x-[-50px] translate-x-[-100px]  my-[154px]`}
-              images={[
-                "/images/hero/img4.jpg",
-                "/images/hero/img4.jpg",
-                "/images/hero/img4.jpg",
-                "/images/hero/img4.jpg",
-                "/images/hero/img4.jpg",
-                "/images/hero/img4.jpg",
-              ]}
+              className={`md:translate-x-[-50px] translate-x-[-100px]  md:my-[154px] my-[50px]`}
+              images={gridList2}
             />
             <Row
-              className={` md:translate-x-[-200px] translate-x-[-150px] !mb-[154px]
-           `}
-              images={[
-                "/images/hero/img4.jpg",
-                "/images/hero/img4.jpg",
-                "/images/hero/img4.jpg",
-                "/images/hero/img4.jpg",
-                "/images/hero/img4.jpg",
-                "/images/hero/img4.jpg",
-              ]}
+              className={` md:translate-x-[-200px] translate-x-[-150px] md:mb-[154px] mb-[50px]
+                `}
+              images={gridList3}
             />
           </>
         )}
@@ -146,25 +121,27 @@ const Row = ({
   images,
   className,
 }: {
-  images: string[];
+  images: { id: string; title: string; img: string }[];
   className?: string;
-  grid?: boolean;
 }) => {
+  const { selectedOption } = useMenu();
   const rowRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  // Initial animation for appearance
   useEffect(() => {
     const rows = rowRef.current?.querySelectorAll(".single-row");
     const titles = rowRef.current?.querySelectorAll(".title");
 
-    if (rows && rows.length > 0 && titles) {
+    if (rows && rows.length && titles) {
       rows.forEach((el) => el.getBoundingClientRect());
       titles.forEach((el) => el.getBoundingClientRect());
-      gsap.to(rows, {
-        opacity: 1,
-        right: 0,
-        height: "100%",
-        scale: 1,
-        stagger: 0.2,
-      });
+
+      gsap.fromTo(
+        rows,
+        { opacity: 0, scale: 0.1 },
+        { opacity: 1, scale: 1, stagger: 0.2 }
+      );
+
       titles.forEach((title) => {
         const split = new SplitText(title as HTMLElement, { type: "chars" });
         gsap.set(split.chars, { opacity: 0 });
@@ -176,35 +153,75 @@ const Row = ({
         });
       });
     }
-  }, [images]);
+  }, [images, selectedOption]);
+
+  const handleClick = (
+    e: React.MouseEvent<HTMLDivElement>,
+    item: { id: string; img: string; title: string }
+  ) => {
+    const imageEl = e.currentTarget.querySelector(".image") as HTMLImageElement;
+    if (!imageEl) return;
+    const rows = rowRef.current?.querySelectorAll(".single-row");
+    const titles = rowRef.current?.querySelectorAll(".title");
+
+    if (rows && rows.length && titles) {
+      rows.forEach((el) => el.getBoundingClientRect());
+      titles.forEach((el) => el.getBoundingClientRect());
+
+      gsap.fromTo(
+        rows,
+        { opacity: 1, scale: 1 },
+        {
+          opacity: 0,
+          scale: 0.1,
+          stagger: 0.2,
+          onComplete: () => {
+            router.push(`/list/${item.id}`);
+          },
+        }
+      );
+    }
+    // gsap.to(imageEl, {
+    //   // position: "fixed",
+    //   top: 0,
+    //   left: 0,
+    //   position: "absolute",
+
+    //   // width: "100vw !imp",
+    //   // height: "100vh",
+    //   scale: 2,
+    //   objectFit: "cover",
+    //   zIndex: 9999999,
+    //   duration: 0.8,
+    //   ease: "power2.inOut",
+    //   onStart: () => {
+    //     // router.push(`/list/${item.id}`);
+    //   },
+    // });
+  };
+
   return (
     <div
       ref={rowRef}
-      className={` group  row-data h-full relative flex    w-full gap-x-[60px] md:gap-x-[120px]  ${className} `}
+      className={`group row-data h-full relative flex w-full gap-x-[60px] md:gap-x-[120px] ${className}`}
     >
-      {images.map((src, i) => (
+      {images.map((item, i) => (
         <div
-          key={i}
-          className={`single-row scale-10    opacity-0  y-[100px]  relative mb-0 !w-[100%]    
-            
-            `}
+          onClick={(e) => handleClick(e, item)}
+          key={item.id}
+          className="single-row relative cursor-pointer"
         >
-          <div
-            className={` ${"md:!w-[400px] !w-[200px]"}  
-              h-auto  `}
-          >
+          <div className="md:w-[400px] w-[200px] h-auto relative">
             <Image
-              src={src}
-              alt={`image-${i}`}
+              src={item.img}
+              alt={item.title}
               width={400}
               height={280}
-              className={`image rounded-[8px]    `}
+              className="image rounded-[8px]"
             />
           </div>
-          <div
-            className={`text-[#EFEBE5] title  justify-center items-center   font-[400] mt-[16px] inline  text-[1.4rem]`}
-          >
-            Wooden Chest
+          <div className="text-[#EFEBE5] title font-[400] mt-[16px] text-[1.4rem]">
+            {item.title}
           </div>
         </div>
       ))}
@@ -215,9 +232,11 @@ const List = ({
   images,
   className,
 }: {
-  images: string[];
+  images: { id: string; title: string; img: string }[];
   className?: string;
 }) => {
+  const { selectedOption } = useMenu();
+
   const rowRef1 = useRef<HTMLDivElement>(null);
   const cursorImageRef = useRef<HTMLDivElement>(null);
 
@@ -231,13 +250,22 @@ const List = ({
       rows.forEach((el) => el.getBoundingClientRect());
       titles.forEach((el) => el.getBoundingClientRect());
       explores.forEach((el) => el.getBoundingClientRect());
-
-      gsap.to(rows, {
-        opacity: 1,
-        right: 0,
-        height: "100%",
-        stagger: 0.2,
-      });
+      // right-[-50%]  opacity-0
+      gsap.fromTo(
+        rows,
+        {
+          opacity: 0,
+          right: "-50%",
+          height: "100%",
+          stagger: 0.2,
+        },
+        {
+          opacity: 1,
+          right: 0,
+          height: "100%",
+          stagger: 0.2,
+        }
+      );
 
       titles.forEach((title) => {
         const split = new SplitText(title as HTMLElement, { type: "chars" });
@@ -261,52 +289,52 @@ const List = ({
     }
 
     // Cursor follow logic
-    const cursorImage = cursorImageRef.current;
+    // const cursorImage = cursorImageRef.current;
 
-    const handleMouseMove = (e: MouseEvent) => {
-      if (cursorImage) {
-        gsap.to(cursorImage, {
-          x: e.clientX + 20,
-          y: e.clientY + 20,
-          duration: 0.2,
-          ease: "power2.out",
-        });
-      }
-    };
+    // const handleMouseMove = (e: MouseEvent) => {
+    //   if (cursorImage) {
+    //     gsap.to(cursorImage, {
+    //       x: e.clientX + 20,
+    //       y: e.clientY + 20,
+    //       duration: 0.2,
+    //       ease: "power2.out",
+    //     });
+    //   }
+    // };
 
-    const handleMouseEnter = (imgSrc: string) => {
-      if (cursorImage) {
-        const imgEl = cursorImage.querySelector("img") as HTMLImageElement;
-        imgEl.src = imgSrc;
-        cursorImage.style.display = "block";
-        document.addEventListener("mousemove", handleMouseMove);
-      }
-    };
+    // const handleMouseEnter = (imgSrc: string) => {
+    //   if (cursorImage) {
+    //     const imgEl = cursorImage.querySelector("img") as HTMLImageElement;
+    //     imgEl.src = imgSrc;
+    //     cursorImage.style.display = "block";
+    //     document.addEventListener("mousemove", handleMouseMove);
+    //   }
+    // };
 
-    const handleMouseLeave = () => {
-      if (cursorImage) {
-        cursorImage.style.display = "none";
-        document.removeEventListener("mousemove", handleMouseMove);
-      }
-    };
+    // const handleMouseLeave = () => {
+    //   if (cursorImage) {
+    //     cursorImage.style.display = "none";
+    //     document.removeEventListener("mousemove", handleMouseMove);
+    //   }
+    // };
 
-    // Attach hover listeners
-    if (rows) {
-      rows.forEach((row, i) => {
-        row.addEventListener("mouseenter", () => handleMouseEnter(images[i]));
-        row.addEventListener("mouseleave", handleMouseLeave);
-      });
-    }
+    // // Attach hover listeners
+    // if (rows) {
+    //   rows.forEach((row, i) => {
+    //     row.addEventListener("mouseenter", () => handleMouseEnter(images[i]));
+    //     row.addEventListener("mouseleave", handleMouseLeave);
+    //   });
+    // }
 
-    // Cleanup
-    return () => {
-      rows?.forEach((row) => {
-        row.removeEventListener("mouseenter", () => {});
-        row.removeEventListener("mouseleave", handleMouseLeave);
-      });
-      document.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, [images]);
+    // // Cleanup
+    // return () => {
+    //   rows?.forEach((row) => {
+    //     row.removeEventListener("mouseenter", () => {});
+    //     row.removeEventListener("mouseleave", handleMouseLeave);
+    //   });
+    //   document.removeEventListener("mousemove", handleMouseMove);
+    // };
+  }, [images, selectedOption]);
 
   return (
     <>
@@ -315,14 +343,14 @@ const List = ({
         className={`flex flex-col overflow-y-scroll pt-[130px] h-[90vh] w-[100wh] ${className}`}
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        {images.map((src, i) => (
+        {images.map((item, i) => (
           <div
             key={i}
-            className="flex right-[-50%]  opacity-0 relative single-row py-[12px] md:items-center border-b border-[#6D6E7D] !w-[100%]"
+            className="flex  relative single-row py-[12px] md:items-center border-b border-[#6D6E7D] !w-[100%]"
           >
             <div className="md:!w-[133px] !w-[100px] h-auto">
               <Image
-                src={src}
+                src={item.img}
                 alt={`image-${i}`}
                 width={133}
                 height={133}
@@ -330,7 +358,7 @@ const List = ({
               />
             </div>
             <div className="title text-[#EFEBE5] justify-center items-center ms-[16px] font-[400] mt-[16px] inline md:text-[2.56rem]">
-              Wooden Chest
+              {item.title}
             </div>
             <div className="explore flex md:mt-0 mt-[50px] items-center gap-x-[10px] ms-auto">
               <span className="font-[500] md:text-[0.88rem] text-[0.7rem] text-[#EFEBE5]">

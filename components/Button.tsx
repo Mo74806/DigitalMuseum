@@ -31,13 +31,13 @@ const Button = ({
       <span className="relative inline-flex overflow-hidden ">
         <div
           style={{ fontFamily: "var(--font-patua)" }}
-          className="translate-y-0 xl:text-[0.94rem] text-[0.89rem] font-[400] text-[#253143]  skew-y-0 transition duration-500 group-hover:translate-y-[-160%]  group-hover:skew-y-12"
+          className="translate-y-0 xl:text-[0.94rem] text-[0.89rem] font-extrabold text-[#253143]  skew-y-0 transition duration-500 group-hover:translate-y-[-160%]  group-hover:skew-y-12"
         >
           {title}
         </div>
         <div
           style={{ fontFamily: "var(--font-patua)" }}
-          className="absolute translate-y-[164%] xl:text-[0.94rem] text-[0.89rem] font-[400] text-[#253143] skew-y-12 transition duration-500 group-hover:translate-y-0 group-hover:skew-y-0"
+          className="absolute translate-y-[164%] xl:text-[0.94rem] text-[0.89rem] font-extrabold text-[#253143] skew-y-12 transition duration-500 group-hover:translate-y-0 group-hover:skew-y-0"
         >
           {title}
         </div>
