@@ -148,7 +148,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
       </div>
 
-      <div className="flex lg:flex-row lg:gap-y-0 gap-y-3 flex-col lg:gap-x-[45px] text-[#EFEBE5] p-[40px] md:h-[calc(100vh-233px)] h-[calc(100vh-173px)] grid-cols-1">
+      <div className="flex   lg:flex-row lg:gap-y-0 gap-y-3 flex-col lg:gap-x-[45px] text-[#EFEBE5] p-[40px] md:h-[calc(100vh-233px)] h-[calc(100vh-173px)] md:overflow-y-hidden overflow-y-auto grid-cols-1">
         <div
           id="img-section"
           className="bg-[#C7C6C50D] relative rounded-[16px] lg:!w-[55%] lg:!h-full !h-[40vh] "
@@ -163,8 +163,8 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
           />
         </div>
         <div
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          className=" lg:!w-[45%]  lg:overflow-y-scroll  overflow-y-auto    md:pb-0 pb-[100px] "
+          // style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          className=" lg:!w-[45%]  lg:overflow-y-hidden  overflow-y-auto    md:pb-0 pb-[100px] "
         >
           <h1
             id="title"
