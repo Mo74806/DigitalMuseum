@@ -16,7 +16,7 @@ const ImagesSwiper = ({ images }: { images: string[] }) => {
     <div className="bg-[#C7C6C50D]  mx-auto rounded-[16px]  lg:h-full h-[40vh] overflow-hidden">
       <div
         onClick={() => swiperRef.current?.slideNext()}
-        className="absolute bottom-[40px] right-[40px]"
+        className="absolute md:bottom-[40px] bottom-[10px] md:right-[40px] right-[10px]"
       >
         <MoreImagesBtn />
       </div>
@@ -34,6 +34,7 @@ const ImagesSwiper = ({ images }: { images: string[] }) => {
           <SwiperSlide onClick={() => swiperRef.current?.slideNext()} key={i}>
             <div className="relative w-full h-full cursor-pointer">
               <Image
+                sizes="100%"
                 src={src}
                 alt={`image${i + 1}`}
                 fill

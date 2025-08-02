@@ -1,4 +1,9 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #253143;
+  --color-creamy: #c7c6c5;
+}
 body {
   font-size: 16px;
   background-color: #253143 !important;

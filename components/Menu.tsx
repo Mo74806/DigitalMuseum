@@ -1,9 +1,7 @@
 "use client";
 
 import { useGSAP } from "@gsap/react";
-import { div } from "framer-motion/client";
 import gsap from "gsap";
-import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { MorphSVGPlugin } from "gsap/MorphSVGPlugin";
 import BurgerMenu from "./SVG/MorphBurgerBtn";
@@ -120,7 +118,7 @@ const Menu = ({ id }: { id: string }) => {
       <div
         id={id}
         ref={containerRef}
-        className="relative  md:flex hidden z-[10000]  top-[100px] bg-[#C7C6C5] mx-auto  gap-x-[10px] w-fit px-[6px] py-[5px] rounded-full"
+        className="relative  md:flex hidden z-[10000]  top-[100px] bg-creamy mx-auto  gap-x-[10px] w-fit px-[6px] py-[5px] rounded-full"
       >
         {/* Animated Highlight */}
         <div
@@ -153,13 +151,11 @@ const Menu = ({ id }: { id: string }) => {
       </div>
       <div
         id="small-menu"
-        className=" md:hidden  absolute  z-[10000] p-0 text-center items-center justify-center  w-[50px]  h-[50px]    top-[2.5%] right-[17px]  bg-[#C7C6C5]   flex  rounded-full"
+        className=" md:hidden  absolute  z-[10000] p-0 text-center items-center justify-center  w-[50px]  h-[50px]    top-[2.5%] right-[17px]  bg-creamy   flex  rounded-full"
       >
-        <BurgerMenu
-          onClick={() => {
-            setOpenMenu((prev) => !prev);
-          }}
-        />
+        <div className="absolute right-[13px] top-[14px]">
+          <BurgerMenu onClick={() => setOpenMenu((prev) => !prev)} />
+        </div>
         {!openMenu ? null : (
           <div
             id="small-menu-options"
@@ -184,8 +180,8 @@ const Menu = ({ id }: { id: string }) => {
                 style={{ fontStyle: "italic" }}
                 className={`opacity-0 bottom-[-300px]     ${
                   selectedOption === item &&
-                  "bg-[#253143]  font-[500] scale-[110%]  text-white "
-                }    text-[1.2rem] relative  text-[#253143]  bordre-[#6D6E7D]  inline  text-center !w-auto  py-[15px] z-10  cursor-pointer  `}
+                  "bg-primary  font-[500] scale-[110%]  text-white "
+                }    text-[1.2rem] relative  text-primary  bordre-[#6D6E7D]  inline  text-center !w-auto  py-[15px] z-10  cursor-pointer  `}
               >
                 {item}
               </div>

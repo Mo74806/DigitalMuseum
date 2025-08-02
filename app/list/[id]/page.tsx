@@ -1,18 +1,17 @@
 "use client";
 
-import Image from "next/image";
 import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
-import MoreImagesBtn from "@/components/MoreImagesBtn";
 import ImagesSwiper from "@/components/ImagesSwiper";
+import { useRouter } from "next/navigation";
 gsap.registerPlugin(SplitText);
-const Details = () => {
+const Details = ({ params }: { params: Promise<{ id: string }> }) => {
+  const router = useRouter();
+  const { id } = React.use(params);
   useGSAP(() => {
     const tl = gsap.timeline();
     tl.fromTo("#img-section", { left: "-50%" }, { left: 0 });
@@ -33,12 +32,7 @@ const Details = () => {
           ease: "power1.inOut",
         }
       )
-      .fromTo(
-        title.chars,
-        { opacity: 0 },
-        { opacity: 1, stagger: 0.05 },
-        "=-1.5"
-      )
+      .fromTo(title.chars, { opacity: 0 }, { opacity: 1, stagger: 0.05 }, "-=3")
       .fromTo(
         "#creator",
         { opacity: 0, borderBottom: "none", borderWidth: "0px" },
@@ -54,13 +48,13 @@ const Details = () => {
         "#creator > span",
         { top: -50, opacity: 0 },
         { top: 0, opacity: 1, stagger: 0.05 },
-        "=-1.5"
+        "-=3"
       )
       .fromTo(
         creator.words,
         { top: -50, opacity: 0 },
         { top: 0, opacity: 1, stagger: 0.05 },
-        "=-1.5"
+        "-=3"
       )
       .fromTo(
         "#qoute",
@@ -84,7 +78,7 @@ const Details = () => {
           stagger: 0.03,
           ease: "power1.inOut",
         },
-        "=-1.5"
+        "-=3"
       )
       .fromTo(
         description.lines,
@@ -103,8 +97,13 @@ const Details = () => {
   }, []);
   return (
     <div className="flex flex-col h-[100vh]  overflow-hidden">
-      <div className="mt-[100px] h-[61px] w-[100wh] border-t border-b border-[#C7C6C5]">
-        <div className="flex !w-fit h-[100%] gap-x-[6px] px-[20px] items-center justify-center border-r border-[#C7C6C5]">
+      <div className="mt-[100px] h-[61px] flex w-[100wh] border-t border-b border-creamy">
+        <div
+          onClick={() => {
+            router.push("/list");
+          }}
+          className="flex  cursor-pointer !w-fit h-[100%] gap-x-[6px] px-[20px] items-center justify-center border-r border-creamy"
+        >
           <svg
             width="19"
             height="19"
@@ -123,9 +122,32 @@ const Details = () => {
             All Objects
           </p>
         </div>
+        <div
+          onClick={() => {
+            console.log("object");
+            router.push(`/list/${parseInt(id) + 1}`);
+          }}
+          className="flex  ms-auto bg-creamy text-primary cursor-pointer !w-fit h-[100%] gap-x-[6px] px-[20px] items-center justify-center border-l border-creamy"
+        >
+          <p className="text-[0.88rem] font-[500]">Next Story</p>
+          <svg
+            width="19"
+            height="19"
+            viewBox="0 0 19 19"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M13.2778 9.5L9.5 5.72222M13.2778 9.5H5.72222M13.2778 9.5L9.5 13.2778M9.5 1C8.38376 1 7.27846 1.21986 6.24719 1.64702C5.21592 2.07419 4.27889 2.70029 3.48959 3.48959C2.70029 4.27889 2.07419 5.21592 1.64702 6.24719C1.21986 7.27846 1 8.38376 1 9.5C1 10.6162 1.21986 11.7215 1.64702 12.7528C2.07419 13.7841 2.70029 14.7211 3.48959 15.5104C4.27889 16.2997 5.21592 16.9258 6.24719 17.353C7.27846 17.7801 8.38376 18 9.5 18C11.7543 18 13.9163 17.1045 15.5104 15.5104C17.1045 13.9163 18 11.7543 18 9.5C18 7.24566 17.1045 5.08365 15.5104 3.48959C13.9163 1.89553 11.7543 1 9.5 1Z"
+              stroke="#253143"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
       </div>
 
-      <div className="flex lg:flex-row lg:gap-y-0 gap-y-3 flex-col lg:gap-x-[45px] text-[#EFEBE5] p-[40px] h-[calc(100vh-233px)]  grid-cols-1">
+      <div className="flex lg:flex-row lg:gap-y-0 gap-y-3 flex-col lg:gap-x-[45px] text-[#EFEBE5] p-[40px] md:h-[calc(100vh-233px)] h-[calc(100vh-173px)] grid-cols-1">
         <div
           id="img-section"
           className="bg-[#C7C6C50D] relative rounded-[16px] lg:!w-[55%] lg:!h-full !h-[40vh] "
@@ -141,7 +163,7 @@ const Details = () => {
         </div>
         <div
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          className=" rounded-[16px] lg:!w-[45%] !h-full  overflow-y-auto"
+          className=" lg:!w-[45%] !h-full    md:pb-0 pb-[100px] lg:overflow-y-hidden  overflow-y-scroll"
         >
           <h1
             id="title"
@@ -160,7 +182,7 @@ const Details = () => {
           <div id="qoute" className="py-[20px]  border-b border-[#6D6E7D]">
             <p
               style={{ fontFamily: "var(--noto-sans) ", fontStyle: "italic" }}
-              className="font-[400]  text-[1.5rem] text-[#C7C6C5]"
+              className="font-[400]  text-[1.5rem] text-creamy"
             >
               {`"These scenes of creatures drinking water from one fountain
               together; for me, it shows peace."`}

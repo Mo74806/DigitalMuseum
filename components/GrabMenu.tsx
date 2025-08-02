@@ -2,13 +2,7 @@ import React from "react";
 
 const GrabMenu = () => {
   return (
-    <div className="  z-[10000] relative  bg-[#C7C6C5] mx-auto flex gap-x-[10px] w-fit px-[6px] py-[5px] rounded-full">
-      {/* Animated Highlight */}
-      <div
-        className="absolute bg-white rounded-full  pointer-events-none transition-all duration-300"
-        style={{ top: 0, left: 0, width: 0, height: 0, opacity: 0 }}
-      />
-
+    <div className="  z-[10000] relative  bg-creamy mx-auto flex gap-x-[10px] w-fit px-[6px] py-[5px] rounded-full">
       <div
         className={`  flex-col  w-[54px]  h-[54px]  items-center flex  justify-center  transition-all duration-500  text-center  z-10  cursor-pointer rounded-full `}
       >
@@ -34,8 +28,8 @@ const GrabMenu = () => {
           </svg>
         </div>
         <div style={{ display: "block", maxWidth: "fit-content" }}>
-          <p className="text-[#253143] text-[11px] whitespace-nowrap inline-block">
-            Grab
+          <p className="text-primary text-[11px] whitespace-nowrap inline-block">
+            Drag
           </p>
         </div>{" "}
       </div>

@@ -6,8 +6,8 @@ import { MorphSVGPlugin } from "gsap/MorphSVGPlugin";
 
 gsap.registerPlugin(MorphSVGPlugin);
 
-export default function MorphSoundBtn() {
-  const [open, setOpen] = useState(true);
+export default function MorphSoundBtn({ muted }: { muted: boolean }) {
+  const [open, setOpen] = useState(muted);
 
   const wave1Path =
     "M13.4375 4.1875C13.4375 4.1875 14.375 5.125 14.375 6.6875C14.375 8.25 13.4375 9.1875 13.4375 9.1875";

@@ -1,14 +1,14 @@
 "use client";
 import Image from "next/image";
-import clsx from "clsx";
+// import clsx from "clsx";
+// import logo from "./svg/Group 4.svg";
 
 import React, { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRouter } from "next/navigation";
 import MorphSoundBtn from "./SVG/MorphSoundBtn";
-// import logo from "./images/svg/Group 4.svg";
-
+// import logo from "./svg/Artifacta.svg";
 const NavBar = () => {
   const router = useRouter();
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
@@ -52,14 +52,14 @@ const NavBar = () => {
       />
       <div
         onClick={() => setIsAudioPlaying((prev) => !prev)}
-        className="hover:bg-[#81807f] hover:scale-120 transition-all duration-300  absolute z-[10000] !p-0  text-center items-center justify-center  w-[50px]  h-[50px] md:left-[37px] md:top-[25px] top-[20px] left-[17px]  bg-[#C7C6C5]   flex  rounded-full"
+        className="hover:bg-[#81807f] hover:scale-120 transition-all duration-300  absolute z-[10000] !p-0  text-center items-center justify-center  w-[50px]  h-[50px] md:left-[37px] md:top-[25px] top-[20px] left-[17px]  bg-creamy   flex  rounded-full"
       >
-        <MorphSoundBtn />
+        <MorphSoundBtn muted={!isAudioPlaying} />
       </div>
 
       <Image
         onClick={() => router.push(`/`)}
-        src="./images/svg/Artifacta.svg"
+        src={"/svg/Artifacta.svg"}
         width="100"
         height="100"
         alt="Artifacta_Logo"

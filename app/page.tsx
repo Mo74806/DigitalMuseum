@@ -5,6 +5,7 @@ import { SplitText } from "gsap/SplitText";
 import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { useWindowWidth } from "@react-hook/window-size";
 
 // Register plugin
 gsap.registerPlugin(ScrollToPlugin);
@@ -16,11 +17,10 @@ const IMAGES = [
 ];
 
 const HeroSection = () => {
+  const width = useWindowWidth();
   const [loading, setLoading] = useState(true);
   const pageRef = useRef(null);
   const page1Ref = useRef(null);
-  const page2Ref = useRef(null);
-  const mainTextRef = useRef(null);
   const subTextRef = useRef(null);
   const router = useRouter();
 
@@ -50,30 +50,30 @@ const HeroSection = () => {
         "#animated-text",
         {
           ease: "power1.inOut",
-          scale: window.innerWidth > 767 ? 5 : 3,
+          scale: width > 767 ? 5 : 3,
         },
         {
           ease: "power1.inOut",
           scale: 1,
-          duration: window.innerWidth > 767 ? 5 : 2,
+          duration: width > 767 ? 6 : 3,
         }
-      );
-      tl.fromTo(
+      ).fromTo(
         "#whole_svg",
         {
           ease: "power1.inOut",
-          top: window.innerWidth > 767 ? "-100%" : "-200%",
-          scale: window.innerWidth > 767 ? 10 : 1,
+          top: width > 767 ? "-100%" : "-200%",
+          scale: width > 767 ? 10 : 1,
           rotate: "180",
         },
         {
           ease: "power1.inOut",
           opacity: "1",
-          top: window.innerWidth > 767 ? 0 : "25%",
+          top: width > 767 ? 0 : "25%",
           scale: 1,
-          duration: window.innerWidth > 767 ? 2 : 1,
+          duration: width > 767 ? 3 : 2,
           rotate: "0",
-        }
+        },
+        "-=1"
       );
       const subText = new SplitText("#sub_text", { type: "words" });
       tl.fromTo(
@@ -105,7 +105,7 @@ const HeroSection = () => {
         opacity: 1,
         ease: "expo.inOut",
         top: "-100%",
-        scale: window.innerWidth > 767 ? 10 : 1,
+        scale: width > 767 ? 10 : 1,
         rotate: "180",
       }).fromTo(
         page1Ref.current,
@@ -132,9 +132,9 @@ const HeroSection = () => {
       <div
         ref={page1Ref}
         id="landing"
-        className="relative flex w-full h-[100vh] bg-[#253143] overflow-hidden  md:items-center items-start justify-center"
+        className="relative flex w-full h-[100vh] bg-primary overflow-hidden  md:items-center items-start justify-center"
       >
-        <div className=" flex z-2  flex-col w-full md:pt-0 pt-[150px] items-center justify-center">
+        <div className=" flex z-2  flex-col w-full md:pt-[100px] pt-[150px] items-center justify-center">
           {/* main heading */}
           <svg
             style={{ willChange: "fill" }}

@@ -1,18 +1,14 @@
 "use client";
-import React, { memo, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import GalleryGrid from "@/components/GalleryGrid";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Menu from "@/components/Menu";
 import GridMenu from "@/components/GridMenu";
 import GrabMenu from "@/components/GrabMenu";
-
 const ListPage = () => {
   const [showGrid, setShowGrid] = useState("grid");
-
   useEffect(() => {
-    console.log("object");
-
     gsap.fromTo(
       "#bg-svg > g",
       { scale: "1.2", duration: 2, rotate: "-50" },
@@ -59,7 +55,7 @@ const ListPage = () => {
   return (
     <div
       id="list-page"
-      className=" top-[-50%] bg-[#253143]a relative    justify-center  overflow-hidden   !w-[100wh]  !h-[100vh]"
+      className=" top-[-50%] bg-primarya relative    justify-center  overflow-hidden   !w-[100wh]  !h-[100vh]"
     >
       {/* artifacta gallery */}
       <GalleryGrid
