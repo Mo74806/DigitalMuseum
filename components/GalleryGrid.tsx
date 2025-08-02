@@ -50,7 +50,12 @@ export default function GalleryGrid({
           edgeResistance: 0.85,
           allowContextMenu: true,
         });
-
+      else {
+        if (draggableRef.current?.[0]) {
+          draggableRef.current[0].kill();
+          draggableRef.current = null;
+        }
+      }
       return () => {
         if (draggableRef.current?.[0]) {
           draggableRef.current[0].kill();
