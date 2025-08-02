@@ -4,7 +4,7 @@ const GrabMenu = () => {
   return (
     <div className="  z-[10000] relative  bg-creamy mx-auto flex gap-x-[10px] w-fit px-[6px] py-[5px] rounded-full">
       <div
-        className={`  flex-col  w-[54px]  h-[54px]  items-center flex  justify-center  transition-all duration-500  text-center  z-10  cursor-pointer rounded-full `}
+        className={`  flex-col  md:w-[54px]  md:h-[54px] w-[45px] h-[45px]  items-center flex  justify-center  transition-all duration-500  text-center  z-10  cursor-pointer rounded-full `}
       >
         <div>
           <svg

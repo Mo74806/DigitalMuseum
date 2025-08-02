@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { useWindowWidth } from "@react-hook/window-size";
-import useMousePosition from "../hooks/useMousePosition";
 import LandingSvg from "@/components/SVG/LandingSvg";
 import HeroText from "@/components/SVG/HeroText";
 
@@ -26,11 +25,6 @@ const HeroSection = () => {
   const page1Ref = useRef(null);
   const subTextRef = useRef(null);
   const router = useRouter();
-  const [isHovered, setIsHovered] = useState(false);
-
-  const { x, y } = useMousePosition();
-
-  const size = isHovered ? 400 : 40;
 
   useEffect(() => {
     const preloadImages = async () => {
