@@ -30,10 +30,16 @@ function GalleryGrid({
       const content = contentRef.current;
       gsap.set(content, { x: 0, y: 0 });
 
-      if (showGrid)
+      let startX = 0;
+      let startY = 0;
+
+      if (showGrid) {
         draggableRef.current = Draggable.create(content, {
           type: "x,y",
           dragClickables: true,
+          inertia: true,
+          edgeResistance: 0.85,
+          allowContextMenu: true,
           bounds: {
             minX:
               window.innerWidth > 767
@@ -46,16 +52,31 @@ function GalleryGrid({
                 : -(window.innerHeight - 800),
             minY: 200,
           },
-          inertia: true,
-          edgeResistance: 0.85,
-          allowContextMenu: true,
+          onPress: function () {
+            startX = this.x;
+            startY = this.y;
+          },
+          onRelease: function () {
+            const movedX = Math.abs(this.x - startX);
+            const movedY = Math.abs(this.y - startY);
+
+            // Detect tap (no significant drag)
+            if (movedX < 5 && movedY < 5) {
+              const target = this.pointerEvent?.target as HTMLElement;
+              const clickable = target.closest(".single-row") as HTMLElement;
+              if (clickable) {
+                clickable.click(); // trigger Row's onClick
+              }
+            }
+          },
         });
-      else {
+      } else {
         if (draggableRef.current?.[0]) {
           draggableRef.current[0].kill();
           draggableRef.current = null;
         }
       }
+
       return () => {
         if (draggableRef.current?.[0]) {
           draggableRef.current[0].kill();
