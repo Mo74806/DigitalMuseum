@@ -45,6 +45,7 @@ export default function GalleryGrid({
       if (showGrid)
         draggableRef.current = Draggable.create(content, {
           type: "x,y",
+          dragClickables: true,
           bounds: {
             minX:
               window.innerWidth > 767
@@ -63,10 +64,11 @@ export default function GalleryGrid({
         });
 
       return () => {
-        if (draggableRef.current?.[0]) {
-          draggableRef.current[0].kill();
-          draggableRef.current = null;
-        }
+        if (!showGrid)
+          if (draggableRef.current?.[0]) {
+            draggableRef.current[0].kill();
+            draggableRef.current = null;
+          }
       };
     }
   }, [showGrid]);
@@ -209,7 +211,7 @@ const Row = ({
         <div
           onClick={(e) => handleClick(e, item)}
           key={item.id}
-          className="single-row relative cursor-pointer"
+          className="single-row opacity-0 relative cursor-pointer"
         >
           <div className="md:w-[400px] w-[200px] h-auto relative">
             <Image
@@ -346,7 +348,7 @@ const List = ({
         {images.map((item, i) => (
           <div
             key={i}
-            className="flex  relative single-row py-[12px] md:items-center border-b border-[#6D6E7D] !w-[100%]"
+            className="flex opacity-0  relative single-row py-[12px] md:items-center border-b border-[#6D6E7D] !w-[100%]"
           >
             <div className="md:!w-[133px] !w-[100px] h-auto">
               <Image
